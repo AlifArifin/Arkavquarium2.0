@@ -1,6 +1,6 @@
 import java.lang.Math;
 
-class Point {
+class Point implements Comparable<Point> {
     private double x, y;
     /*Sekawan*/
     public Point(double x, double y){
@@ -64,10 +64,20 @@ class Point {
         return Math.atan2(p.y - y, p.x - x);
     }
     
-    public boolean isEqual(Point p){
+    @Override
+    public int compareTo(Point p){
         int absis = (int) x;
         int ordinat = (int) y;
-        return absis == (int) p.x && ordinat == (int)p.y;
+        int _x = (int) p.x;
+        int _y = (int) p.y;
+
+        if (absis < _x) return -1;
+        else if (absis > _x) return 1;
+        else { // x == other.x
+            if (ordinat < _y) return -1;
+            else if (ordinat > _y) return 1;
+            else return 0;
+        }
     }
         
     public boolean isInRadius(Point p, int r){
