@@ -1,36 +1,75 @@
-import java.util.*;
+import java.lang.Math;
 
+/**
+ * Abstract Class Summonable.
+ * A Summonable class consists of Point type position, 
+ * integer type direction and speed, and double type constant PI.
+ * A Summonable class will represent all objects that can be summoned in the Aquarium.
+ * 
+ * @author Rabbi Fijar Mayoza --13516081
+ * @version 20 April 2018 
+ */
 abstract class Summonable {
-    protected Point position; //mencatat posisi dari summonable pada point
-    protected int direction;  //direction harus berada pada angka 0 <= direction <= 360        
-    protected int speed; //kecepatan dari Summonable
-    protected static double PI = 3.14159265;
+  protected Point position; //mencatat posisi dari summonable pada point
+  protected int direction;  //direction harus berada pada angka 0 <= direction <= 360        
+  protected int speed; //kecepatan dari Summonable
+  protected static double PI = 3.14159265;
     
-    /*Sekawan*/
-    public Summonable(int _s, Point _p){//menerima jenis, speed, dan lokasi spawn
-        position = new Point(_p);
-        speed = _s;
-        direction = (int) Math.random() % 360;
-    }
+  /*Sekawan*/
 
-    /*Getter*/
-    public Point getPosition(){
-        return position;
-    } 
+  /**
+  * Parameterized Point Constructor.
+  * 
+  * @param speed - speed
+  * @param pos - spawn position
+  */
+  public Summonable(int speed, Point pos) {
+    position = new Point(pos.getX(), pos.getY());
+    this.speed = speed;
+    direction = (int) Math.random() % 360;
+  }
 
-    public int getDirection(){
-        return direction;
-    } 
+  /*Getter*/
 
-    public int getSpeed(){
-        return speed;
-    }
+  /**
+  * Position getter.
+  * @return this summonable position.
+  */
+  public Point getPosition() {
+    return position;
+  }
+  
+  /**
+  * Direction getter.
+  * @return this summonable direction.
+  */
+  public int getDirection() {
+    return direction;
+  }
+  
+  /**
+  * Speed getter.
+  * @return this summonable speed.
+  */
+  public int getSpeed() {
+    return speed;
+  }
+  
+  /*Setter*/
 
-    /*Setter*/
-    public void setPosition(Point p){
-        position = p;
-    }
-    public void setDirection(int d){
-        direction = d;
-    }
+  /**
+  * Position setter.
+  * @param p Position to set.
+  */
+  public void setPosition(Point p) {
+    position = p;
+  }
+
+  /**
+  * Direction setter.
+  * @param d direction to set.
+  */
+  public void setDirection(int d) {
+    direction = d;
+  }
 }
