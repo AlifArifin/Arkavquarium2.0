@@ -7,13 +7,13 @@ import java.lang.Math;
  * A Summonable class will represent all objects that can be summoned in the Aquarium.
  * 
  * @author Rabbi Fijar Mayoza --13516081
- * @version 20 April 2018 
+ * @version 21 April 2018 
  */
 abstract class Summonable {
   protected Point position; //mencatat posisi dari summonable pada point
   protected int direction;  //direction harus berada pada angka 0 <= direction <= 360        
   protected int speed; //kecepatan dari Summonable
-  protected static double PI = 3.14159265;
+  protected static final double PI = 3.14159265;
     
   /*Sekawan*/
 
