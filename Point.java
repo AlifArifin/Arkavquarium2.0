@@ -99,35 +99,32 @@ class Point implements Comparable<Point> {
   * Position checker.
   * Return true if this.point is on the bottom of the aquarium.
   * 
-  * @param m Matrix.
   * @param r ordinate of aquarium's bottom.
   * @return boolean.  
   */
-  public boolean isBottom(Matrix m, int r) {
-    return (int) ord == m.getRow() - 1 - r;
+  public boolean isBottom(int r) {
+    return (int) ord == Matrix.getRow() - 1 - r;
   }
 
   /**
   * Position checker.
   * Return true if this.point is out of the bottom of the aquarium.
   *
-  * @param m Matrix.
   * @param r ordinate of aquarium's bottom.
   * @return boolean.  
   */
-  public boolean isOutBottom(Matrix m, int r) {
-    return (int) ord > m.getRow() - 1 - r;
+  public boolean isOutBottom(int r) {
+    return (int) ord > Matrix.getRow() - 1 - r;
   }
     
   /**
   * Position checker.
   * Return true if this.point is out of the surface of the aquarium.
   *
-  * @param m Matrix.
   * @param r ordinate of aquarium's surface.
   * @return boolean.  
   */
-  public boolean isOutTop(Matrix m, int r) {
+  public boolean isOutTop(int r) {
     return (int) ord < r;
   }
      
@@ -135,23 +132,21 @@ class Point implements Comparable<Point> {
   * Position checker.
   * Return true if this.point is out of the right wall of the aquarium.
   *
-  * @param m Matrix.
   * @param r abscissa of aquarium's surface.
   * @return boolean.  
   */
-  public boolean isOutRight(Matrix m, int r) {
-    return (int) abs > m.getColumn() - 1 - r;
+  public boolean isOutRight(int r) {
+    return (int) abs > Matrix.getColumn() - 1 - r;
   }
         
   /**
   * Position checker.
   * Return true if this.point is out of the left wall of the aquarium.
   *
-  * @param m Matrix.
   * @param r abscissa of aquarium's surface.
   * @return boolean.  
   */
-  public boolean isOutLeft(Matrix m, int r) {
+  public boolean isOutLeft(int r) {
     return (int) abs < r;
   }
     
