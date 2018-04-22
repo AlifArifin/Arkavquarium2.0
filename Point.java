@@ -47,7 +47,7 @@ class Point implements Comparable<Point> {
   /*Setter*/
 
   /**
-  * x getter.
+  * x setter.
   * @param abs set this.abs with abs.
   */
   public void setX(double abs) {

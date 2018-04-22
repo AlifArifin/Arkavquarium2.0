@@ -1,27 +1,58 @@
-import java.util.*;
+/**
+ * Class Matrix.
+ * A matrix object consists of integer type row, column, and 
+ * two dimensional data container.
+ * A matrix object contains the position of all objects summoned in the Aquarium.
+ * 
+ * @author Rabbi Fijar Mayoza --13516081
+ * @version 20 April 2018 
+ */
 
-class Matrix{
-    private static int row = 480;
-    private static int column = 640;
-    private int[][] data;
+class Matrix {
+  private static int row = 480;
+  private static int column = 640;
+  private int[][] data;
 
-    public Matrix(){
-        data = new int[row][column];
-    }
-    
-    public static int getRow(){
-        return row;
-    }
-    
-    public static int getColumn(){
-        return column;
-    }
-    
-    public void setVal(int m, int n, int val){
-        data[m][n] = val;
-    }
+  /**
+  * Default Point Constructor.
+  */
+  public Matrix() {
+    data = new int[row][column];
+  }
 
-    public int getVal(int m, int n){
-        return data[m][n];
-    }
+  /**
+  * Row getter.
+  * @return this matrix row.
+  */
+  public static int getRow() {
+    return row;
+  }
+    
+  /**
+  * Column getter.
+  * @return this matrix column.
+  */
+  public static int getColumn() {
+    return column;
+  }
+
+  /**
+  * Value setter.
+  * @param m row index.
+  * @param n column index.
+  * @param val value to set.
+  */
+  public void setVal(int m, int n, int val) {
+    data[m][n] = val;
+  }
+
+  /**
+  * Value getter.
+  * @param m row index.
+  * @param n column index.
+  * @return value in data[m][n].
+  */
+  public int getVal(int m, int n) {
+    return data[m][n];
+  }
 }
