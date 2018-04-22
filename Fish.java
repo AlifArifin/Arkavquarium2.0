@@ -1,30 +1,37 @@
 import java.util.Random;
 
 /**
+ * Class Fish.
+ * Fish is an abstract class that have 2 derived class that is Guppy and Piranha
+ * Fish control about hungry and movement
+ * 
  * @author Muhammad Alif Arifin/13516078
  */
 public abstract class Fish extends Summonable {
-  //atribut
-  protected boolean hungry; //status kelaparan ikan
-  protected double countMove; //menghitung waktu pergerakan ikan setelah mengganti arah/makan
-  protected double changeMove; //periode penggantian arah ikan
-  protected final int value; //harga dari ikan
-  protected static final int hungerTime = 6; //periode ikan lapar
-  protected static final int deadTime = 12; //periode ikan mati
-  protected static final int speedFish = 40; //kecepatan ikan
+  // atribut
+  protected boolean hungry; // status kelaparan ikan
+  protected double countMove; // menghitung waktu pergerakan ikan setelah mengganti arah/makan
+  protected double changeMove; // periode penggantian arah ikan
+  protected final int value; // harga dari ikan
+  protected static final int hungerTime = 6; // periode ikan lapar
+  protected static final int deadTime = 12; // periode ikan mati
+  protected static final int speedFish = 40; // kecepatan ikan
 
   /**
-   * Sebuah konstruktor dari ikan.
+   * Sebuah konstruktor dari ikan yang userdefined.
+   * Mengeset hungry menjadi false
+   * Mengeset countMove menjadi 0
    * 
    * @param value mengisi harga dari ikan
    * @param point untuk tempat ikan pertama kalinya
    */
   public Fish(int value, Point point) {
+    // memanggil konstruktor parent
     super(speedFish, point);
     hungry = false;
     countMove = 0;
     this.value = value;
-    //mengganti change move (ketika waktu sudah habis)
+    // mengganti change move (ketika waktu sudah habis)
     changeChangeMove();
   }
 
@@ -123,6 +130,7 @@ public abstract class Fish extends Summonable {
    * Mengganti change move karena waktunya berganti posisi.
    */
   public void changeChangeMove() {
+    // Membangkitkan fungsi untuk meng-generate angka
     Random rand = new Random();
 
     changeMove = (rand.nextInt(45) + 5) / 10.0;
