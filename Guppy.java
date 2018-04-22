@@ -1,24 +1,35 @@
 import java.lang.Comparable;
 import java.util.Random;
 
+/**
+ * Class Guppy.
+ * Guppy is a fish in arkavquarium that have 3 phase and can produce coin
+ * Guppy can eat food when it is hungry.
+ * 
+ * @author Muhammad Alif Arifin/13516078
+ * @version 22 April 2018
+ */
 public class Guppy extends Fish implements Comparable {
-  protected int phase; //tahap dari guppy 
-  protected String image; //menyimpan gambar dari guppy
-  protected int foodCount; //menghitung banyaknya makanan yang telah dimakan
-  protected double coinCount; //menghitung jumlah waktu setelah mengeluarkan koin terakhir
-  protected static final int coinTime = 8; //periode mengeluarkan koin
-  protected static final int valueGuppy = 100; //harga guppy
-  protected static final int valueCoin = 40; //value coin yang dihasilkan guppy
-  protected static final int growTime = 2; //jumlah makanan yang dibutuhkan untuk tumbuh * phase
-  protected static final int radiusGuppy = 15; //radius dari guppy
-  protected static final String[][] imageGuppy = {
+  protected int phase; // tahap dari guppy 
+  protected String image; // menyimpan gambar dari guppy
+  protected int foodCount; // menghitung banyaknya makanan yang telah dimakan
+  protected double countCoin; // menghitung jumlah waktu setelah mengeluarkan koin terakhir
+  protected static final int coinTime = 8; // periode mengeluarkan koin
+  protected static final int valueGuppy = 100; // harga guppy
+  protected static final int valueCoin = 40; // value coin yang dihasilkan guppy
+  protected static final int growTime = 2; // jumlah makanan yang dibutuhkan untuk tumbuh * phase
+  protected static final int radiusGuppy = 15; // radius dari guppy
+  protected static final String[][] imageGuppy = { // mencatat array dari gambar Guppy
     {"img/LGuppy1.png", "img/RGuppy1.png", "img/LHungryGuppy1.png", "img/RHungryGuppy1.png"}, 
     {"img/LGuppy2.png", "img/RGuppy2.png", "img/LHungryGuppy2.png", "img/RHungryGuppy2.png"}, 
     {"img/LGuppy3.png", "img/RGuppy3.png", "img/LHungryGuppy3.png", "img/RHungryGuppy3.png"}
   };
 
   /**
-   * Konstruktor Guppy.
+   * Konstruktor Guppy userdefined.
+   * Mengeset phase menjadi 1
+   * Mengeset foodCount dan countCoin menjadi 0
+   * Mengeset image dengan imageGuppy[0][0]
    * 
    * @param point Posisi dari guppy
    */
@@ -26,7 +37,7 @@ public class Guppy extends Fish implements Comparable {
     super(valueGuppy, point);
     this.phase = 1;
     this.foodCount = 0;
-    this.coinCount = 0;
+    this.countCoin = 0;
     this.image = imageGuppy[0][0];
   }
 
@@ -58,12 +69,12 @@ public class Guppy extends Fish implements Comparable {
   }
 
   /**
-   * Getter dari coinCount.
+   * Getter dari countCoin.
    * 
-   * @return the coinCount
+   * @return the countCoin
    */
-  public double getCoinCount() {
-    return coinCount;
+  public double getCountCoin() {
+    return countCoin;
   }
 
   /**
@@ -148,12 +159,12 @@ public class Guppy extends Fish implements Comparable {
   }
 
   /**
-   * Setter dari coinCount.
+   * Setter dari countCoin.
    * 
-   * @param coinCount the coinCount to set
+   * @param countCoin the countCoin to set
    */
-  public void setCoinCount(double coinCount) {
-    this.coinCount = coinCount;
+  public void setCountCoin(double countCoin) {
+    this.countCoin = countCoin;
   }
 
   /**
@@ -164,17 +175,22 @@ public class Guppy extends Fish implements Comparable {
    * @param time merupakan perbedaan waktu dari move sebelumnya
    * @return yang menyatakan apabila
    *         -1 maka tidak ada makanan yang dimakan
+   *         -2 maka ikan mati
    *         selain itu maka merupakan index dari food pada listFood
    */
   public int move(ListObj<Food> listFood, Matrix matrix, double time) {
-    countTime += time;
-    changeMove += time;
-    cointCount += time;
+    // mencatat waktu terkahir setelah (sesuai dengan variabel)
+    countMove += time;
+    changeMove -= time;
+    countCoin += time;
 
+    // apabila pergerakan setelah makan terakhir telah melebihi hungerTime
     if (countMove >= hungerTime && !hungry) {
       hungry = true;
+    // apabila pergerakan setelah makan terakhir telah melebihi deadTime
     } else if (countMove >= deadTime) {
       return -2;
+    // apabila changeMove telah 0 (akan dikurangi setiap pergerakan) 
     } else if (changeMove <= 0 && !hungry) {
       changeChangeMove();
     }
@@ -198,6 +214,8 @@ public class Guppy extends Fish implements Comparable {
   public int hungryMove(ListObj<Food> listFood, Matrix matrix) {
     double closestFood = listFood.get(0).getPosition().distanceTo(position);
     int idxFood = 0;
+
+    // mencari index makanan yang paling dekat dengan Guppy
     for (int i = 0; i < listFood.size(); i++) {
       double temp = listFood.get(i).getPosition().distanceTo(position);
       if (temp < closestFood) {
@@ -207,13 +225,13 @@ public class Guppy extends Fish implements Comparable {
     }
 
     Food food = listFood.get(idxFood);
-
     double a = position.patan2(food.getPosition());
     int newDirection = ((a * 180.0 / PI).intValue() % 360 + 360) % 360;
+    
     setDirection(newDirection);
 
-    double temp = radiusGuppy * phase + Food.getRadiusFood();
-    if (food.getPosition().isInRadius(position, temp)) {
+    // apabila makanan berada di dalam radius dari guppy
+    if (food.getPosition().isInRadius(position, radiusGuppy * phase + Food.getRadiusFood())) {
       countMove = 0;
       return listFood.find(food);
     } else {
@@ -234,11 +252,15 @@ public class Guppy extends Fish implements Comparable {
   public int notHungryMove(Matrix matrix) {
     Random rand = new Random();
     double rad = PI / 180 * direction;
+
     setDirection(direction);
-    
+    // mengeset X dan Y yang beru dengan rumus
+    // x' = x + v * cos(rad) * time
+    // y' = y + v * sin(rad) * time
     position.setX(position.getX() + speedFish * cos(rad) * time);
     position.setY(position.getY() + speedFish * sin(rad) * time);
 
+    // jika Guppy keluar dari radius maka akan memutar arah Guppy
     if (position.isOutLeft(matrix, radiusGuppy * phase)) {
       position.setX(radiusGuppy * phase);
       direction = (rand.nextInt(180) - 90) % 360;
@@ -246,7 +268,6 @@ public class Guppy extends Fish implements Comparable {
       position.setX(matrix.getColumn() - 1 - radiusGuppy * phase);
       direction = rand.nextInt(180) + 90;
     }
-    
     if (position.isOutTop(matrix, radiusGuppy * phase)) {
       position.setY(radiusGuppy * phase);
       direction = rand.nextInt(180);
@@ -255,6 +276,7 @@ public class Guppy extends Fish implements Comparable {
       direction = rand.nextInt(180) + 180;
     }
 
+    // mengeset arah yang baru (apabila keluar dari batas)
     setDirection(direction);
     return -1;
   }
@@ -265,10 +287,11 @@ public class Guppy extends Fish implements Comparable {
    * @return objek coin dari hasil Guppy
    */
   public Coin dropCoin() {
-    coinCount = 0;
-    int valua = valueCoin * phase;
+    int value = valueCoin * phase;
     Coin coin = new Coin(position, value);    
 
+    countCoin = 0;
+    
     return coin;
   }
 
@@ -279,7 +302,8 @@ public class Guppy extends Fish implements Comparable {
   public void eat() {
     hungry = false;
     foodCount++;
-    
+
+    // apabila foodCount telah sama dengan growTime * phase dan tidak sedang berada pada phase = 3
     if (foodCount == growTime * phase && phase != 3) {
       phase++;
       foodCount = 0;
