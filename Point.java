@@ -159,7 +159,7 @@ class Point implements Comparable<Point> {
   * Arc tan operation.
   * Count the arc tan of parameter Point  - this.point.
   *
-  * @param p Goal's point
+  * @param p goal point
   * @return value of arctan(p.ord - this.ord, p.abs - this.abs).  
   */
   public double patan2(Point p) {
