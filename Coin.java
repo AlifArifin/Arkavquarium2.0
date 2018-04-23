@@ -56,7 +56,7 @@ public class Coin extends Summonable {
      * 
 	 * @return the speedcoin
 	 */
-	public static int getSpeedcoin() {
+	public static int getSpeedCoin() {
 		return speedCoin;
 	}
 
@@ -65,7 +65,7 @@ public class Coin extends Summonable {
      * 
 	 * @return the radiuscoin
 	 */
-	public static int getRadiuscoin() {
+	public static int getRadiusCoin() {
 		return radiusCoin;
 	}
 
