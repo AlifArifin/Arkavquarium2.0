@@ -171,14 +171,13 @@ public class Guppy extends Fish implements Comparable {
    * Merupakan method untuk menggerakkan Guppy.
    * 
    * @param listFood merupakan list dari food di aquarium
-   * @param matrix merupakan matrix yang menyimpan ukuran aquarium
    * @param time merupakan perbedaan waktu dari move sebelumnya
    * @return yang menyatakan apabila
    *         -1 maka tidak ada makanan yang dimakan
    *         -2 maka ikan mati
    *         selain itu maka merupakan index dari food pada listFood
    */
-  public int move(ListObj<Food> listFood, Matrix matrix, double time) {
+  public int move(ListObj<Food> listFood, double time) {
     // mencatat waktu terkahir setelah (sesuai dengan variabel)
     countMove += time;
     changeMove -= time;
@@ -196,9 +195,9 @@ public class Guppy extends Fish implements Comparable {
     }
 
     if (hungry && !listFood.isEmpty()) {
-      return hungryMove(listFood, matrix);
+      return hungryMove(listFood);
     } else {
-      return notHungryMove(matrix);
+      return notHungryMove();
     }
   }
 
@@ -206,12 +205,12 @@ public class Guppy extends Fish implements Comparable {
    * Method untuk pergerakan Guppy ketika sedang lapar 
    * dan saat itu ada makanan.
    * 
-   * @param matrix merupakan matrix untuk mencatat luas area aquarium
+   * @param listFood merupakan list dari food yang ada di aquarium
    * @return int yang menunjukkan apabila -1 maka tidak ada makanan yang 
    *         dimakan namun apabila bukan -1 menujukkan index food (makanan) 
    *         pada listFood yang telah dimakan
    */
-  public int hungryMove(ListObj<Food> listFood, Matrix matrix) {
+  public int hungryMove(ListObj<Food> listFood) {
     double closestFood = listFood.get(0).getPosition().distanceTo(position);
     int idxFood = 0;
 
@@ -245,11 +244,10 @@ public class Guppy extends Fish implements Comparable {
    * Method untuk pergerakan Guppy ketika sedang tidak lapar/
    * lapar namun tidak ada makanan.
    * 
-   * @param matrix merupakan matrix untuk mencatat luas area aquarium
    * @return int yang menunjukkan apabila -1 maka tidak ada makanan 
    *         yang dimakan
    */
-  public int notHungryMove(Matrix matrix) {
+  public int notHungryMove() {
     Random rand = new Random();
     double rad = PI / 180 * direction;
 
@@ -261,18 +259,18 @@ public class Guppy extends Fish implements Comparable {
     position.setY(position.getY() + speedFish * sin(rad) * time);
 
     // jika Guppy keluar dari radius maka akan memutar arah Guppy
-    if (position.isOutLeft(matrix, radiusGuppy * phase)) {
+    if (position.isOutLeft(radiusGuppy * phase)) {
       position.setX(radiusGuppy * phase);
       direction = (rand.nextInt(180) - 90) % 360;
-    } else if (position.isOutRight(matrix, radiusGuppy * phase)) {
-      position.setX(matrix.getColumn() - 1 - radiusGuppy * phase);
+    } else if (position.isOutRight(radiusGuppy * phase)) {
+      position.setX(Matrix.getColumn() - 1 - radiusGuppy * phase);
       direction = rand.nextInt(180) + 90;
     }
-    if (position.isOutTop(matrix, radiusGuppy * phase)) {
+    if (position.isOutTop(radiusGuppy * phase)) {
       position.setY(radiusGuppy * phase);
       direction = rand.nextInt(180);
-    } else if (position.isOutBottom(matrix, radiusGuppy * phase)) {
-      position.setY(matrix.getRow() - 1 - radiusGuppy * phase);
+    } else if (position.isOutBottom(radiusGuppy * phase)) {
+      position.setY(Matrix.getRow() - 1 - radiusGuppy * phase);
       direction = rand.nextInt(180) + 180;
     }
 
@@ -316,7 +314,7 @@ public class Guppy extends Fish implements Comparable {
   @Override
   public int compareTo(Guppy g1) {
     if (g1.phase == phase && g1.foodCount == foodCount && g1.hungry == hungry
-        && position.compareTo(g1.position) && direction == g1.direction) {
+        && position.compareTo(g1.position) == 0 && direction == g1.direction) {
       return 0;
     } else {
       return 1;
