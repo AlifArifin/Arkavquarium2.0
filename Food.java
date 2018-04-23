@@ -1,3 +1,5 @@
+import java.lang.Comparable;
+
 /**
  * Class Food.
  * Coin is an object that produced when clicking the mouse inside aquarium.
@@ -7,7 +9,7 @@
  * @author Rahmat Nur Ibrahim Santosa/13516009
  * @version 23 April 2018
  */
-public class Food extends Summonable {
+public class Food extends Summonable implements Comparable<Food>  {
     private static final int valueFood = 10; // harga makanan
     private static final int speedFood = 20; // kecepatan gerak makanan
     private static final int radiusFood = 10; // radius dari makanan
@@ -30,7 +32,7 @@ public class Food extends Summonable {
      * 
 	 * @return the valueFood
 	 */
-	public static int getValuefood() {
+	public static int getValueFood() {
 		return valueFood;
     }
     
@@ -39,7 +41,7 @@ public class Food extends Summonable {
      * 
 	 * @return the speedFood
 	 */
-	public static int getSpeedfood() {
+	public static int getSpeedFood() {
 		return speedFood;
 	}
 	
@@ -48,7 +50,7 @@ public class Food extends Summonable {
      * 
 	 * @return the radiusFood
 	 */
-	public static int getRadiusfood() {
+	public static int getRadiusFood() {
 		return radiusFood;
 	}
 	
@@ -74,6 +76,20 @@ public class Food extends Summonable {
             return position.isOutBottom(radiusFood);
         } else {
             return false;
+        }
+    }
+
+    /**
+     * CompareTo for compare food.
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareTo(Food o) {
+        if (direction == o.direction && position.compareTo(o.position) == 0) {
+            return 0;
+        } else {
+            return 1;
         }
     }
 }

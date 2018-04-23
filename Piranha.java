@@ -1,6 +1,13 @@
 import java.lang.Comparable;
 import java.util.Random;
 
+/**
+ * Class Piranha.
+ * Piranha is a fish in aquarium that eat Guppy
+ * 
+ * @author Muhammad Alif Arifin/13516078
+ * @version 23 April 2018
+ */
 public class Piranha extends Fish implements Comparable {
   //Atribut
   protected String image;
