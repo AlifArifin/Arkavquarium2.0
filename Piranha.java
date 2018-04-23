@@ -10,11 +10,11 @@ import java.util.Random;
  * @version 23 April 2018
  */
 public class Piranha extends Fish implements Comparable<Piranha> {
-  //Atribut
-  protected String image;
-  protected static final int valuePiranha = 300; //harga ikan piranha
-  protected static final int radiusPiranha = 35;
-  protected static final String[] imagePiranha = {
+  // Atribut
+  protected String image; // image menyimpan gambar dari ikan piranha saat itu
+  protected static final int valuePiranha = 300; // harga ikan piranha
+  protected static final int radiusPiranha = 35; // radius dari ikan piranha
+  protected static final String[] imagePiranha = { // list dari gambar ikan piranha
     "img/LPiranha.png", "img/RPiranha.png", "img/LHungryPiranha.png", "img/RHungryPiranha.png"
   };
   
@@ -85,13 +85,18 @@ public class Piranha extends Fish implements Comparable<Piranha> {
    *         selain itu maka merupakan index dari Guppy pada listGuppy
    */
   public int move(ListObj<Guppy> listGuppy, double time) {
+    // mencatat perubahan waktu countMove mencatat waktu setelah makan terakhir
+    // changeMove akan berkurang hingga < 0 (kalau kurang ikan akan berubah arah)
     countMove += time;
     changeMove -= time;
   
+    // apabila pergerakan setelah makan terakhir telah melebihi hungerTime
     if (countMove >= hungerTime && !hungry) {
       hungry = true;
+    // apabila pergerakan setelah makan terakhir telah melebihi deadTime
     } else if (countMove >= deadTime) {
       return -2;
+    // apabila changeMove telah 0 (akan dikurangi setiap pergerakan) 
     } else if (changeMove <= 0 && !hungry) {
       changeChangeMove();
     }
@@ -115,9 +120,13 @@ public class Piranha extends Fish implements Comparable<Piranha> {
     Random rand = new Random();
     double rad = Math.PI / 180 * direction;
     
+    // mengeset X dan Y yang beru dengan rumus
+    // x' = x + v * cos(rad) * time
+    // y' = y + v * sin(rad) * time
     position.setX(position.getX() + speedFish * Math.cos(rad) * time);
     position.setY(position.getY() + speedFish * Math.sin(rad) * time);
     
+    // jika Piranha keluar dari radius maka akan memutar arah Piranha
     if (position.isOutLeft(radiusPiranha)) {
       position.setX(radiusPiranha);
       direction = (rand.nextInt(180) - 90) % 360;
@@ -125,7 +134,6 @@ public class Piranha extends Fish implements Comparable<Piranha> {
       position.setX(Matrix.getColumn() - 1 - radiusPiranha);
       direction = rand.nextInt(180) + 90;
     }
-    
     if (position.isOutTop(radiusPiranha)) {
       position.setY(radiusPiranha);
       direction = rand.nextInt(180);
@@ -152,6 +160,7 @@ public class Piranha extends Fish implements Comparable<Piranha> {
   public int hungryMove(ListObj<Guppy> listGuppy, double time) {
     double closestFood = listGuppy.get(0).getPosition().distanceTo(position);
     int idxFood = 0;
+    // mencari index Guppy yang paling dekat dengan Piranha
     for (int i = 0; i < listGuppy.size(); i++) {
       double temp = listGuppy.get(i).getPosition().distanceTo(position);
       if (temp < closestFood) {
@@ -161,16 +170,20 @@ public class Piranha extends Fish implements Comparable<Piranha> {
     }
 
     Guppy guppy = listGuppy.get(idxFood);
-
     double a = position.patan2(guppy.getPosition());
     int dir = ((int)(a * 180.0 / Math.PI) % 360 + 360) % 360;
     setDirection(dir); 
     
     int temp = Guppy.getRadiusGuppy() * guppy.getPhase();
+
+    // apabila makanan berada di dalam radius dari guppy
     if (guppy.getPosition().isInRadius(position, radiusPiranha + temp)) {
       countMove = 0;
       return listGuppy.find(guppy);
     } else {
+      // mengeset X dan Y yang beru dengan rumus
+      // x' = x + v * cos(rad) * time
+      // y' = y + v * sin(rad) * time
       position.setX(position.getX() + speedFish * Math.cos(a) * time);
       position.setY(position.getY() + speedFish * Math.sin(a) * time);
       return -1;

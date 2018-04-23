@@ -236,6 +236,9 @@ public class Guppy extends Fish implements Comparable<Guppy> {
       countMove = 0;
       return listFood.find(food);
     } else {
+      // mengeset X dan Y yang beru dengan rumus
+      // x' = x + v * cos(rad) * time
+      // y' = y + v * sin(rad) * time
       position.setX(position.getX() + speedFish * Math.cos(a) * time);
       position.setY(position.getY() + speedFish * Math.sin(a) * time);
       return -1;
