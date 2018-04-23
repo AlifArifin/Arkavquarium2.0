@@ -1,3 +1,5 @@
+import java.lang.Comparable;
+
 /**
  * Class Coin.
  * Coin is an object that produced by guppy.
@@ -6,7 +8,7 @@
  * @author Rahmat Nur Ibrahim Santosa/13516009
  * @version 23 April 2018
  */
-public class Coin extends Summonable {
+public class Coin extends Summonable implements Comparable {
   private final int value; // harga coin
   private static final int speedCoin = 20; // kecepatan gerak coin
   private static final int radiusCoin = 10; // radius dari coin
@@ -45,7 +47,7 @@ public class Coin extends Summonable {
   /**
    * Getter of value.
    * 
-   * @return the value
+   * @return the coin value.
    */
   public int getValue() {
     return value;
@@ -54,7 +56,7 @@ public class Coin extends Summonable {
   /**
    * Getter of speedCoin.
    * 
-   * @return the speedcoin
+   * @return the speedcoin.
    */
   public static int getSpeedCoin() {
     return speedCoin;
@@ -63,7 +65,7 @@ public class Coin extends Summonable {
   /**
    * Getter of radiusCoin.
    * 
-   * @return the radiuscoin
+   * @return the radiuscoin.
    */
   public static int getRadiusCoin() {
     return radiusCoin;
@@ -72,9 +74,23 @@ public class Coin extends Summonable {
   /**
    * Getter of image.
    * 
-   * @return the image
+   * @return the image.
    */
   public static String getImage() {
     return image;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int compareTo(Object o) {
+    Coin c = (Coin)o;
+    if (c.value == value && direction == c.direction
+        && position.compareTo(c.position) == 0) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 }
