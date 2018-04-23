@@ -87,7 +87,7 @@ class Snail extends Summonable {
       int idxCoin = 0;
       for (int i = 0; i < coinList.size(); i++) {
         Point temp = coinList.get(i).getPosition();
-        if (position.isInRadius(temp, Coin.getRadiuscoin() + radius_snail)) {
+        if (position.isInRadius(temp, Coin.getRadiusCoin() + radius_snail)) {
           return i;
         } else if ((int) temp.getY() > (int) closestCoin.getY()) {
           closestCoin = temp;
@@ -103,16 +103,16 @@ class Snail extends Summonable {
       double a = position.patan2(c.getPosition());
       int dir = (int) ((a * 180.0 / PI) % 360 + 360) % 360;
       setDirection(dir);
-      if (position.isInRadius(c.getPosition(), Coin.getRadiuscoin() + radius_snail)) {
+      if (position.isInRadius(c.getPosition(), Coin.getRadiusCoin() + radius_snail)) {
         return idxCoin;
       } else if ((int) position.getX() == (int) c.getPosition().getX()) {
         return -1;
       } else {
-  position.setX(position.getX() + speed_snail * Math.cos(direction * PI / 180) * time);
+        position.setX(position.getX() + speed_snail * Math.cos(direction * PI / 180) * time);
         return -1;
       }
     } else {
-        return -1;
+      return -1;
     }
   }
 } 
