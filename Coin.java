@@ -18,7 +18,7 @@ public class Coin extends Summonable implements Comparable<Coin> {
    * User-defined coin constructor.
    * Set the direction of coin to bottom (270).
    * Set the inital coin position with Point p.
-   * Set the value of coin to
+   * Set the value of coin to val.
    * 
    * @param p initial coin position
    * @param val the coin value
