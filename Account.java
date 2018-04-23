@@ -40,7 +40,7 @@ public class Account {
    * Menambahkan sejumlah uang ke dalam jumlah uang pada akun ini.
    * @param val Jumlah uang yang ingin ditambahkan ke akun ini
    */
-  public void addMoney(int val) {
+  public static void addMoney(int val) {
     money += val;
   }
 
@@ -52,8 +52,8 @@ public class Account {
    *         Jika tidak, mengembalikan false
    */
   public boolean buyGuppy() {
-    if (money >= Guppy.getValue_Guppy()) {
-      money -= Guppy.getValue_Guppy();        
+    if (money >= Guppy.getValueGuppy()) {
+      money -= Guppy.getValueGuppy();        
       return true;
     } else {
       return false;
@@ -68,8 +68,8 @@ public class Account {
    *         Jika tidak, mengembalikan false
    */
   public boolean buyPiranha() {
-    if (money >= Piranha.getValue_Piranha()) {
-      money -= Piranha.getValue_Piranha();
+    if (money >= Piranha.getValuePiranha()) {
+      money -= Piranha.getValuePiranha();
       return true;
     } else {
       return false;
@@ -84,8 +84,8 @@ public class Account {
    *         Jika tidak, mengembalikan false
    */
   public boolean buyFood() {
-    if (money >= Food.getValue_Food()) {
-      money -= Food.getValue_Food();
+    if (money >= Food.getValueFood()) {
+      money -= Food.getValueFood();
       return true;
     } else {
       return false;

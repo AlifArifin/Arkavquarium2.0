@@ -42,7 +42,7 @@ class Snail extends Summonable {
   /*Method*/
   /*
   public int move(ListObj<Coin> , double); //untuk pergerakan snail
-        bool operator==(const Snail&) const;
+  bool operator==(const Snail&) const;
   */
    
 }
