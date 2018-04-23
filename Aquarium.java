@@ -192,7 +192,7 @@ public class Aquarium {
    * @param exPiranha piranha yang ingin dihapus
    */
   public void del(Piranha exPiranha) {
-    listPiranha.rempove(exPiranha);
+    listPiranha.remove(exPiranha);
   }
   
   /**
@@ -257,7 +257,7 @@ public class Aquarium {
    */
   public void moveAll(double time) {
     for (int i = 0; i < listFood.size(); i++) {
-      bool bottom = listFood.get(i).move(time);
+      boolean bottom = listFood.get(i).move(time);
 
       if (bottom) {
         listFood.removeIdx(i);
@@ -277,7 +277,7 @@ public class Aquarium {
         listGuppy.get(i).eat();
       }
 
-      if (listGuppy.get(i).getCoinCount() >= Guppy.getCoinTime()) {
+      if (listGuppy.get(i).getCountCoin() >= Guppy.getCoinTime()) {
         Coin c = listGuppy.get(i).dropCoin();
 
         listCoin.add(c);
