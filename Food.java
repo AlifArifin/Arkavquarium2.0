@@ -9,7 +9,7 @@ import java.lang.Comparable;
  * @author Rahmat Nur Ibrahim Santosa/13516009
  * @version 23 April 2018
  */
-public class Food extends Summonable implements Comparable {
+public class Food extends Summonable implements Comparable<Food> {
   private static final int valueFood = 10; // harga makanan
   private static final int speedFood = 20; // kecepatan gerak makanan
   private static final int radiusFood = 10; // radius dari makanan
@@ -85,8 +85,7 @@ public class Food extends Summonable implements Comparable {
    * {@inheritDoc}
    */
   @Override
-  public int compareTo(Object f) {
-    Food o = (Food)f;
+  public int compareTo(Food o) {
     if (direction == o.direction && position.compareTo(o.position) == 0) {
       return 0;
     } else {

@@ -8,7 +8,7 @@ import java.lang.Comparable;
  * @author Rahmat Nur Ibrahim Santosa/13516009
  * @version 23 April 2018
  */
-public class Coin extends Summonable implements Comparable {
+public class Coin extends Summonable implements Comparable<Coin> {
   private final int value; // harga coin
   private static final int speedCoin = 20; // kecepatan gerak coin
   private static final int radiusCoin = 10; // radius dari coin
@@ -84,8 +84,7 @@ public class Coin extends Summonable implements Comparable {
    * {@inheritDoc}
    */
   @Override
-  public int compareTo(Object o) {
-    Coin c = (Coin)o;
+  public int compareTo(Coin c) {
     if (c.value == value && direction == c.direction
         && position.compareTo(c.position) == 0) {
       return 0;
