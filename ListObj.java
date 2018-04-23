@@ -56,8 +56,6 @@ public class ListObj<T extends Comparable<T>> {
     this.last = last;
   }
   
-  /*Method*/
-  //mengembalikan indeks di mana T berada pada linked list, dan -1 jika tidak ada
   /**
    * Search object obj reference in list.
    * 
@@ -222,8 +220,6 @@ public class ListObj<T extends Comparable<T>> {
     current = null;
   }
 
-  //mengembalikan elemen dengan tipe T pada indeks sesuai parameter
-  //asumsi indeks posisi selalu valid
   /**
    * Get object at index pos.
    * Assume index is not out of bound.
@@ -243,7 +239,7 @@ public class ListObj<T extends Comparable<T>> {
   }
 
   /**
-   * Get the number of element in the list.
+   * Return the number of element in the list.
    * 
    * @return the size of the list.
    */
