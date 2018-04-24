@@ -9,7 +9,7 @@
 * @version 22 April 2018 
 */
 
-class Snail extends Summonable {
+class Snail extends Summonable implements Comparable<Snail> {
   private static final int speed_snail = 15; //mencatat kecepatan untuk Snail
   private static final int radius_snail = 22;
   private static String[] image_snail = {"img/LSnail.png", "img/RSnail.png"}; 
@@ -71,6 +71,23 @@ class Snail extends Summonable {
   }
 
   /*Method*/
+
+  /**
+  * compareTo method. 
+  * Implementation of Comparable Interface.
+  * Compare this snail with parameter snail.
+  *
+  * @param s Comparable Snail
+  * @return 0 if equal, -1 if not.
+  */
+
+  public int compareTo(Snail s) {
+    if(s.position.compareTo(position) == 0) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
 
   /**
   * Snail mmovement.
