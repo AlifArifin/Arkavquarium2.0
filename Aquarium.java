@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * Kelas yang menggambarkan keadaan sebuah akuraium dalam permainan.
  * @author Iqrar Aminullah 13516126
@@ -217,38 +219,6 @@ public class Aquarium {
    */
   public void del(Food exFood) {
     listFood.remove(exFood);
-  }
-  
-  /**
-   * Menampilkan seluruh ikan pada akuarium.
-   */
-  public void showAll() {
-    /*
-    for (int i = 0; i < listSnail.size(); i++) {
-      draw_image(listSnail.get(i).getImage(), listSnail.get(i).getPosition().getX(), 
-      listSnail.get(i).getPosition().getY());
-    }
-    
-    for (int i = 0; i < listPiranha.size(); i++) {
-      draw_image(listPiranha.get(i).getImage(), listPiranha.get(i).getPosition().getX(), 
-      listPiranha.get(i).getPosition().getY());
-    }
-    
-    for (int i = 0; i < listGuppy.size(); i++) {
-      draw_image(listGuppy.get(i).getImage(), listGuppy.get(i).getPosition().getX(), 
-      listGuppy.get(i).getPosition().getY());
-    }
-
-    for (int i = 0; i < listFood.size(); i++) {
-      draw_image(listFood.get(i).getImage(), listFood.get(i).getPosition().getX(), 
-      listFood.get(i).getPosition().getY());
-    }
-    
-    for (int i = 0; i < listCoin.size(); i++) {
-      draw_image(listCoin.get(i).getImage(), listCoin.get(is).getPosition().getX(), 
-      listCoin.get(i).getPosition().getY());
-    }
-    */
   }
   
   /**
