@@ -39,7 +39,7 @@ public class Aquarium {
    */
   private ListObj<Food> listFood = new ListObj<>();
   
-  private static final String imageAquarium = "img/Aquarium.jpg";
+  private static final String imageAquarium = "img/Aquarium1.jpg";
   private static final String imageWin = "img/win.png";
   private static final String imageLose = "img/lose.png";
 

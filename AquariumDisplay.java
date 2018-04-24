@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.InterruptedException;
+import java.lang.NullPointerException;
 import java.lang.System;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
