@@ -75,6 +75,23 @@ class Snail extends Summonable implements Comparable {
   /*Method*/
 
   /**
+  * compareTo method. 
+  * Implementation of Comparable Interface.
+  * Compare this snail with parameter snail.
+  *
+  * @param s Comparable Snail
+  * @return 0 if equal, -1 if not.
+  */
+
+  public int compareTo(Snail s) {
+    if(s.position.compareTo(position) == 0) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
+
+  /**
   * Snail mmovement.
   * Snail moves to the closest coin.
   * 
