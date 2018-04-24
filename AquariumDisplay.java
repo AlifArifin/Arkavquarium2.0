@@ -132,6 +132,8 @@ public class AquariumDisplay extends JPanel {
             (int) listSnail.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
+      } catch (NullPointerException ex) {
+        
       }
     }
     
@@ -144,6 +146,8 @@ public class AquariumDisplay extends JPanel {
             (int) listPiranha.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
+      } catch (NullPointerException ex) {
+        
       }
     }
     
@@ -156,6 +160,8 @@ public class AquariumDisplay extends JPanel {
             (int) listGuppy.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
+      } catch (NullPointerException ex) {
+        
       }
     }
   
@@ -172,6 +178,8 @@ public class AquariumDisplay extends JPanel {
             (int) listFood.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
+      } catch (NullPointerException ex) {
+
       }
     }
     
@@ -184,7 +192,9 @@ public class AquariumDisplay extends JPanel {
             (int) listCoin.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
-      }
+      } catch (NullPointerException ex) {
+
+      } 
     }
 
     g.drawString(Integer.toString(arkav.getAquarium().getAccount().getMoney()), 100, 100);    

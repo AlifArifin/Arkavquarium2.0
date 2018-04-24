@@ -143,11 +143,11 @@ public class ListObj<T extends Comparable<T>> {
     } else {
       i = 1;
       Obj<T> prev = temp;
-      temp = temp.getNext();
+      temp =  temp.getNext();
 
       while (id != i && temp != null) {
         prev = temp;
-        temp = temp.getNext();
+        temp =  temp.getNext();
         i++;
       }
 
@@ -180,7 +180,7 @@ public class ListObj<T extends Comparable<T>> {
         found = true;
       } else {
         previous = current;
-        current = current.getNext();
+        current =  current.getNext();
       }
     } 
     previous.setNext(current.getNext());
@@ -192,7 +192,7 @@ public class ListObj<T extends Comparable<T>> {
    */  
   public void deleteFirst() {
     Obj<T> temp = first;
-    first = first.getNext();
+    first =  first.getNext();
     if (first == null) {
       last = null;
     }

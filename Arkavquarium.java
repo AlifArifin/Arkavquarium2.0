@@ -51,17 +51,17 @@ public class Arkavquarium extends JFrame {
     Point point3 = new Point(400, 300);
     Point point4 = new Point(200, 0);
 
-    // make guppy
+    // make guppy and snail
     Guppy guppy1 = new Guppy(point1);
     Snail snail1 = new Snail(point2);
     Guppy guppy2 = new Guppy(point3);
-    Coin coin1 = new Coin(point4, 20);
+    // Coin coin1 = new Coin(point4, 20);
 
-    // add guppy
+    // add guppy dan snail
     aquarium.add(guppy1);
     aquarium.add(snail1);
     aquarium.add(guppy2);
-    aquarium.add(coin1);
+    // aquarium.add(coin1);
 
     setSize(screenWidth, screenHeight);
 
