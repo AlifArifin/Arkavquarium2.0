@@ -10,10 +10,15 @@ import java.lang.Comparable;
  * @version 23 April 2018
  */
 public class Food extends Summonable implements Comparable<Food> {
+  private String image; // mencatat gambar Guppy
+  private double count;
   private static final int valueFood = 10; // harga makanan
   private static final int speedFood = 20; // kecepatan gerak makanan
-  private static final int radiusFood = 17; // radius dari makanan
-  private static final String image = "img/Food.png"; // mencatat gambar Guppy
+  private static final int radiusFood = 12; // radius dari makanan
+  private static final String[] imageFood = {
+    "img/food-1.png", "img/food-2.png", "img/food-3.png", "img/food-4.png", "img/food-5.png", "img/food-6.png",
+    "img/food-7.png", "img/food-8.png", "img/food-9.png", "img/food-10.png", 
+  };
 
   /**
    * User-defined food constructor.
@@ -25,6 +30,8 @@ public class Food extends Summonable implements Comparable<Food> {
   public Food(Point p) {
     super(speedFood, p);
     direction = 270;
+    count = 0;
+    image = imageFood[(int) Math.floor(count)];
   }
 
   /**
@@ -59,7 +66,7 @@ public class Food extends Summonable implements Comparable<Food> {
    *
    * @return the image.
    */
-  public static String getImage() {
+  public String getImage() {
     return image;
   }
 
@@ -71,6 +78,9 @@ public class Food extends Summonable implements Comparable<Food> {
    *         false if the food is not at the bottom.
    */
   boolean move(double time) {
+    count += time;
+    count = count % 0.5;
+    image = imageFood[(int) Math.floor(count/0.05)];
     if (!position.isOutBottom(radiusFood)) {
       position.setY(position.getY() + speed * time);
       return position.isOutBottom(radiusFood);

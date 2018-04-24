@@ -66,12 +66,12 @@ public class AquariumDisplay extends JPanel {
     // Timer timer = new Timer(40, this);
 
     while (!quit) {
+      prev = now;
+      now = getTime();
+
       if (menu) {
         repaint();
       } else {
-        prev = now;
-        now = getTime();
-        
         // perbedaan waktu setelah pergerakan terakhir
         elapsedTime = now - prev;
         
@@ -218,7 +218,7 @@ public class AquariumDisplay extends JPanel {
       ListObj<Food> listFood = arkav.getAquarium().getListFood();
       for (int i = 0; i < listFood.size(); i++) {
         try {
-          image = ImageIO.read(new File(Food.getImage()));
+          image = ImageIO.read(new File(listFood.get(i).getImage()));
           g.drawImage(image, (int) listFood.get(i).getPosition().getX() - image.getWidth() / 2, 
               (int) listFood.get(i).getPosition().getY() - image.getHeight() / 2, this);
         } catch (IOException ex) {
@@ -232,7 +232,7 @@ public class AquariumDisplay extends JPanel {
       ListObj<Coin> listCoin = arkav.getAquarium().getListCoin();
       for (int i = 0; i < listCoin.size(); i++) {
         try {
-          image = ImageIO.read(new File(Coin.getImage()));
+          image = ImageIO.read(new File(listCoin.get(i).getImage()));
           g.drawImage(image, (int) listCoin.get(i).getPosition().getX() - image.getWidth() / 2, 
               (int) listCoin.get(i).getPosition().getY() - image.getHeight() / 2, this);
         } catch (IOException ex) {
@@ -348,7 +348,10 @@ public class AquariumDisplay extends JPanel {
           for (int i = 0; i < listCoin.size(); i++) {
             if (mouseLocation.isInRadius(listCoin.get(i).getPosition(), Coin.getRadiusCoin())) {
               find = true;
+              arkav.getAquarium().getAccount().setMoney(arkav.getAquarium().getAccount().getMoney()
+                + arkav.getAquarium().getListCoin().get(i).getValue());
               arkav.getAquarium().getListCoin().removeIdx(i);
+
               break;
             }
           }

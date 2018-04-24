@@ -65,22 +65,14 @@ public class Arkavquarium extends JFrame {
     aquarium.add(guppy1);
     aquarium.add(snail1);
     aquarium.add(guppy2);
-    // aquarium.add(coin1);
     
     setSize(screenWidth, screenHeight);
     
-    // MainMenu mainmenu = new MainMenu(this);
-    // add(mainmenu);
-    // setVisible(true);        
-
-    // boolean done = mainmenu.start();
-
     AquariumDisplay aquariumDisplay = new AquariumDisplay(this);
     add(aquariumDisplay, BorderLayout.CENTER);
     setVisible(true);        
     
     aquariumDisplay.start();
-
 
     // membuat frame visible
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

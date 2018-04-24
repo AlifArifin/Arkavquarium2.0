@@ -9,10 +9,15 @@ import java.lang.Comparable;
  * @version 23 April 2018
  */
 public class Coin extends Summonable implements Comparable<Coin> {
+  private String image; // mencatat gambar coin
+  private double count;
   private final int value; // harga coin
   private static final int speedCoin = 20; // kecepatan gerak coin
-  private static final int radiusCoin = 17; // radius dari coin
-  private static final String image = "img/Coin.png"; // mencatat gambar coin
+  private static final int radiusCoin = 12; // radius dari coin
+  private static final String[] imageCoin = {
+    "img/coin-1.png", "img/coin-2.png", "img/coin-3.png", "img/coin-4.png", "img/coin-5.png", "img/coin-6.png",
+    "img/coin-7.png", "img/coin-8.png", "img/coin-9.png", "img/coin-10.png", 
+  };
   
   /**
    * User-defined coin constructor.
@@ -27,6 +32,8 @@ public class Coin extends Summonable implements Comparable<Coin> {
     super(speedCoin, p);
     value = val;
     direction = 270;
+    count = 0;
+    image = imageCoin[(int) Math.floor(count)];
   }
 
   /**
@@ -36,6 +43,9 @@ public class Coin extends Summonable implements Comparable<Coin> {
    * @param time current time of the game since start
    */
   void move(double time) {
+    count += time;
+    count = count % 0.5;
+    image = imageCoin[(int) Math.floor(count/0.05)];
     if (!position.isOutBottom(radiusCoin)) {
       position.setY(position.getY() + speed * time);
       if (position.isOutBottom(radiusCoin)) {
@@ -76,7 +86,7 @@ public class Coin extends Summonable implements Comparable<Coin> {
    * 
    * @return the image.
    */
-  public static String getImage() {
+  public String getImage() {
     return image;
   }
 
