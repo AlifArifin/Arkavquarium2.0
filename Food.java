@@ -32,7 +32,7 @@ public class Food extends Summonable implements Comparable<Food> {
    *
    * @return the valueFood.
    */
-  public static int getValuefood() {
+  public static int getValueFood() {
     return valueFood;
   }
 
@@ -41,7 +41,7 @@ public class Food extends Summonable implements Comparable<Food> {
    *
    * @return the speedFood.
    */
-  public static int getSpeedfood() {
+  public static int getSpeedFood() {
     return speedFood;
   }
 
@@ -50,7 +50,7 @@ public class Food extends Summonable implements Comparable<Food> {
    *
    * @return the radiusFood.
    */
-  public static int getRadiusfood() {
+  public static int getRadiusFood() {
     return radiusFood;
   }
 
