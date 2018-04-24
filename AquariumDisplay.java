@@ -38,11 +38,11 @@ public class AquariumDisplay extends JPanel {
    * 
    * @param arkav menyimpan Arkavquarium
    */
-  public AquariumDisplay(Arkavquarium arkav) {
+  public AquariumDisplay(Arkavquarium arkavNew) {
     super();
     // membuat focus
     setFocusable(true);
-    this.arkav = arkav;
+    this.arkav = arkavNew;
     done = false;
     win = false;
 
@@ -54,7 +54,7 @@ public class AquariumDisplay extends JPanel {
   /**
    * Membuat program berjalan.
    */
-  public void start(Arkavquarium arkav) {
+  public void start() {
     boolean quit = false;
     double now = getTime();
     double prev;
@@ -70,19 +70,22 @@ public class AquariumDisplay extends JPanel {
       
       // removeAll image
       arkav.getAquarium().moveAll(elapsedTime);
-      repaint();
       //paintComponent(getGraphics());
 
       // check win or lose
       if (arkav.getAquarium().win()) {
+        done = true;
         win = true;
+        repaint();
         return;
       } else if (arkav.getAquarium().lose()) {
+        done = true;
         win = false;
+        repaint();
         return;
+      } else {
+        repaint();
       }
-
-      //arkav.setVisible(true);
     }
     return;
   }
@@ -111,6 +114,8 @@ public class AquariumDisplay extends JPanel {
     // menggambar aquarium
     BufferedImage image;
 
+    // draw string
+
     try {
       image = ImageIO.read(new File(Aquarium.getImageAquarium()));
       g.drawImage(image, 0, 0, this);
@@ -123,8 +128,8 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listSnail.size(); i++) {
       try {
         image = ImageIO.read(new File(listSnail.get(i).getImage()));
-        g.drawImage(image, (int) listSnail.get(i).getPosition().getX() - Snail.getRadiusSnail(), 
-            (int) listSnail.get(i).getPosition().getY() - Snail.getRadiusSnail(), this);
+        g.drawImage(image, (int) listSnail.get(i).getPosition().getX() - image.getWidth() / 2, 
+            (int) listSnail.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -135,9 +140,8 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listPiranha.size(); i++) {
       try {
         image = ImageIO.read(new File(listPiranha.get(i).getImage()));
-        g.drawImage(image, (int) listPiranha.get(i).getPosition().getX()
-            - Piranha.getRadiusPiranha(), (int) listPiranha.get(i).getPosition().getY()
-            - Piranha.getRadiusPiranha(), this);
+        g.drawImage(image, (int) listPiranha.get(i).getPosition().getX() - image.getWidth() / 2,
+            (int) listPiranha.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -148,8 +152,8 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listGuppy.size(); i++) {
       try {
         image = ImageIO.read(new File(listGuppy.get(i).getImage()));
-        g.drawImage(image, (int) listGuppy.get(i).getPosition().getX() - Guppy.getRadiusGuppy(), 
-            (int) listGuppy.get(i).getPosition().getY() - Guppy.getRadiusGuppy(), this);
+        g.drawImage(image, (int) listGuppy.get(i).getPosition().getX() - image.getWidth() / 2, 
+            (int) listGuppy.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -157,11 +161,15 @@ public class AquariumDisplay extends JPanel {
   
     // menggambar food
     ListObj<Food> listFood = arkav.getAquarium().getListFood();
+    if (!listFood.isEmpty()) {
+      g.drawString(Double.toString(listFood.get(0).getPosition().getY()), 100, 440);
+    }
+
     for (int i = 0; i < listFood.size(); i++) {
       try {
         image = ImageIO.read(new File(Food.getImage()));
-        g.drawImage(image, (int) listFood.get(i).getPosition().getX() - Food.getRadiusFood(), 
-            (int) listFood.get(i).getPosition().getY() - Food.getRadiusFood(), this);
+        g.drawImage(image, (int) listFood.get(i).getPosition().getX() - image.getWidth() / 2, 
+            (int) listFood.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -172,25 +180,29 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listCoin.size(); i++) {
       try {
         image = ImageIO.read(new File(Coin.getImage()));
-        g.drawImage(image, (int) listCoin.get(i).getPosition().getX() - Coin.getRadiusCoin(), 
-            (int) listCoin.get(i).getPosition().getY() - Coin.getRadiusCoin(), this);
+        g.drawImage(image, (int) listCoin.get(i).getPosition().getX() - image.getWidth() / 2, 
+            (int) listCoin.get(i).getPosition().getY() - image.getHeight() / 2, this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
     }
+
+    g.drawString(Integer.toString(arkav.getAquarium().getAccount().getMoney()), 100, 100);    
     
     if (done) {
       if (win) {
         try {
           image = ImageIO.read(new File(Aquarium.getImageWin()));
-          g.drawImage(image, 100, 100, this);
+          g.drawImage(image, Arkavquarium.getScreenWidth() / 2 - image.getWidth() / 2,
+            Arkavquarium.getScreenHeight() / 2 - image.getHeight() / 2, this);
         } catch (IOException ex) {
           System.out.println(ex);
         }
       } else {
         try {
           image = ImageIO.read(new File(Aquarium.getImageLose()));
-          g.drawImage(image, 100, 100, this);
+          g.drawImage(image, Arkavquarium.getScreenWidth() / 2 - image.getWidth() / 2,
+            Arkavquarium.getScreenHeight() / 2 - image.getHeight() / 2, this);
         } catch (IOException ex) {
           System.out.println(ex);
         }
@@ -237,25 +249,25 @@ public class AquariumDisplay extends JPanel {
         case '1':
           // beli Guppy
           if (arkav.getAquarium().getAccount().moneyEnough(Guppy.getValueGuppy())) {
-            arkav.getAquarium().getAccount().buyGuppy();
             tempRadius = Guppy.getRadiusGuppy();
             tempPoint = new Point(
               rand.nextInt(Arkavquarium.getScreenWidth() - 2 * tempRadius) - 1 + tempRadius,
               rand.nextInt(Arkavquarium.getScreenHeight() - 2 * tempRadius) - 1 + tempRadius);
-            Guppy tempGuppy = new Guppy(tempPoint);
-            arkav.getAquarium().add(tempGuppy);
+              Guppy tempGuppy = new Guppy(tempPoint);
+              arkav.getAquarium().add(tempGuppy);
+              arkav.getAquarium().getAccount().buyGuppy();
           }
           break;
         case '2':
           // beli Piranha
           if (arkav.getAquarium().getAccount().moneyEnough(Piranha.getValuePiranha())) {
-            arkav.getAquarium().getAccount().buyPiranha();
             tempRadius = Piranha.getRadiusPiranha();
             tempPoint = new Point(
               rand.nextInt(Arkavquarium.getScreenWidth() - 2 * tempRadius) - 1 + tempRadius,
               rand.nextInt(Arkavquarium.getScreenHeight() - 2 * tempRadius) - 1 + tempRadius);
-            Piranha tempPiranha = new Piranha(tempPoint);
-            arkav.getAquarium().add(tempPiranha);
+              Piranha tempPiranha = new Piranha(tempPoint);
+              arkav.getAquarium().add(tempPiranha);
+              arkav.getAquarium().getAccount().buyPiranha();
           }
           break;
         case '4':
@@ -298,10 +310,10 @@ public class AquariumDisplay extends JPanel {
       }
 
       if (!find && arkav.getAquarium().getAccount().moneyEnough(Food.getValueFood())) {
-        arkav.getAquarium().getAccount().buyFood();
         Point tempPoint = new Point(e.getX(), 0);
         Food tempFood = new Food(tempPoint);
         arkav.getAquarium().getListFood().add(tempFood);
+        arkav.getAquarium().getAccount().buyFood();
       }
     }
 

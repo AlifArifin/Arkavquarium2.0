@@ -48,14 +48,17 @@ public class Arkavquarium extends JFrame {
     // make a point
     Point point1 = new Point(200, 200);
     Point point2 = new Point(150, 200);
+    Point point3 = new Point(400, 300);
 
     // make guppy
     Guppy guppy1 = new Guppy(point1);
     Snail snail1 = new Snail(point2);
+    Guppy guppy2 = new Guppy(point3);
 
     // add guppy
     aquarium.add(guppy1);
     aquarium.add(snail1);
+    //aquarium.add(guppy2);
 
     setSize(screenWidth, screenHeight);
 
@@ -64,7 +67,7 @@ public class Arkavquarium extends JFrame {
     add(aquariumDisplay, BorderLayout.CENTER);
     setVisible(true);        
     
-    aquariumDisplay.start(this);
+    aquariumDisplay.start();
 
 
     // membuat frame visible

@@ -12,7 +12,7 @@ import java.lang.Comparable;
 public class Food extends Summonable implements Comparable<Food> {
   private static final int valueFood = 10; // harga makanan
   private static final int speedFood = 20; // kecepatan gerak makanan
-  private static final int radiusFood = 10; // radius dari makanan
+  private static final int radiusFood = 17; // radius dari makanan
   private static final String image = "img/Food.png"; // mencatat gambar Guppy
 
   /**
