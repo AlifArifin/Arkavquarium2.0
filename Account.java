@@ -30,6 +30,8 @@ public class Account {
   }
 
   /**
+   * getter dari image.
+   * 
    * @return the image
    */
   public String getImage() {

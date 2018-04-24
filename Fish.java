@@ -6,6 +6,7 @@ import java.util.Random;
  * Fish control about hungry and movement
  * 
  * @author Muhammad Alif Arifin/13516078
+ * @version 21 April 2018
  */
 public abstract class Fish extends Summonable {
   // atribut

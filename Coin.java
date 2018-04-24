@@ -15,8 +15,8 @@ public class Coin extends Summonable implements Comparable<Coin> {
   private static final int speedCoin = 20; // kecepatan gerak coin
   private static final int radiusCoin = 12; // radius dari coin
   private static final String[] imageCoin = {
-    "img/coin-1.png", "img/coin-2.png", "img/coin-3.png", "img/coin-4.png", "img/coin-5.png", "img/coin-6.png",
-    "img/coin-7.png", "img/coin-8.png", "img/coin-9.png", "img/coin-10.png", 
+    "img/coin-1.png", "img/coin-2.png", "img/coin-3.png", "img/coin-4.png", "img/coin-5.png", 
+    "img/coin-6.png", "img/coin-7.png", "img/coin-8.png", "img/coin-9.png", "img/coin-10.png", 
   };
   
   /**
@@ -45,7 +45,7 @@ public class Coin extends Summonable implements Comparable<Coin> {
   void move(double time) {
     count += time;
     count = count % 0.5;
-    image = imageCoin[(int) Math.floor(count/0.05)];
+    image = imageCoin[(int) Math.floor(count / 0.05)];
     if (!position.isOutBottom(radiusCoin)) {
       position.setY(position.getY() + speed * time);
       if (position.isOutBottom(radiusCoin)) {

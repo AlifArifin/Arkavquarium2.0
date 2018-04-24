@@ -349,7 +349,7 @@ public class AquariumDisplay extends JPanel {
             if (mouseLocation.isInRadius(listCoin.get(i).getPosition(), Coin.getRadiusCoin())) {
               find = true;
               arkav.getAquarium().getAccount().setMoney(arkav.getAquarium().getAccount().getMoney()
-                + arkav.getAquarium().getListCoin().get(i).getValue());
+                  + arkav.getAquarium().getListCoin().get(i).getValue());
               arkav.getAquarium().getListCoin().removeIdx(i);
 
               break;

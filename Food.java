@@ -16,8 +16,8 @@ public class Food extends Summonable implements Comparable<Food> {
   private static final int speedFood = 20; // kecepatan gerak makanan
   private static final int radiusFood = 12; // radius dari makanan
   private static final String[] imageFood = {
-    "img/food-1.png", "img/food-2.png", "img/food-3.png", "img/food-4.png", "img/food-5.png", "img/food-6.png",
-    "img/food-7.png", "img/food-8.png", "img/food-9.png", "img/food-10.png", 
+    "img/food-1.png", "img/food-2.png", "img/food-3.png", "img/food-4.png", "img/food-5.png",
+    "img/food-6.png", "img/food-7.png", "img/food-8.png", "img/food-9.png", "img/food-10.png", 
   };
 
   /**
@@ -80,7 +80,7 @@ public class Food extends Summonable implements Comparable<Food> {
   boolean move(double time) {
     count += time;
     count = count % 0.5;
-    image = imageFood[(int) Math.floor(count/0.05)];
+    image = imageFood[(int) Math.floor(count / 0.05)];
     if (!position.isOutBottom(radiusFood)) {
       position.setY(position.getY() + speed * time);
       return position.isOutBottom(radiusFood);

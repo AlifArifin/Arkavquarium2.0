@@ -128,9 +128,8 @@ class Snail extends Summonable implements Comparable<Snail> {
       } else if ((int) position.getX() == (int) c.getPosition().getX()) {
         return -1;
       } else {
-        //System.out.printf("%f %f\n", Math.abs(position.getX() - c.getPosition().getX()), (speedSnail * Math.cos(direction * PI / 180) * time));
-        if (Math.abs(position.getX() - c.getPosition().getX()) <= 
-          Math.abs(speedSnail * Math.cos(direction * PI / 180) * time)) {
+        if (Math.abs(position.getX() - c.getPosition().getX())
+            <= Math.abs(speedSnail * Math.cos(direction * PI / 180) * time)) {
           position.setX(c.getPosition().getX());
         } else {
           position.setX(position.getX() + speedSnail * Math.cos(direction * PI / 180) * time);

@@ -191,12 +191,10 @@ public class ListObj<T extends Comparable<T>> {
    * Remove an element obj that is located at the first of the list.
    */  
   public void deleteFirst() {
-    Obj<T> temp = first;
     first =  first.getNext();
     if (first == null) {
       last = null;
     }
-    temp = null;
   }
 
   /**

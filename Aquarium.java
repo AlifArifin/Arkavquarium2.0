@@ -44,13 +44,6 @@ public class Aquarium {
   private static final String imageLose = "img/lose.png";
 
   /**
-   * konstruktor
-   */
-  public Aquarium() {
-    
-  }
-
-  /**
    * Mengambil daftar guppy pada akuarium.
    * @return listGuppy
    */
@@ -107,6 +100,8 @@ public class Aquarium {
   }
 
   /**
+   * getter dari imageAquarium.
+   * 
    * @return the imageAquarium
    */
   public static String getImageAquarium() {
@@ -114,6 +109,8 @@ public class Aquarium {
   }
 
   /**
+   * getter dari imageLose.
+   * 
    * @return the imageLose
    */
   public static String getImageLose() {
@@ -121,6 +118,8 @@ public class Aquarium {
   }
 
   /**
+   * getter dari imageWin.
+   * 
    * @return the imageWin
    */
   public static String getImageWin() {
