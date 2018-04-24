@@ -84,7 +84,7 @@ class Snail extends Summonable implements Comparable<Snail> {
   */
 
   public int compareTo(Snail s) {
-    if(s.position.compareTo(position) == 0) {
+    if (s.position.compareTo(position) == 0) {
       return 0;
     } else {
       return -1;
