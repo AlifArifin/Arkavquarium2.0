@@ -39,6 +39,10 @@ public class Aquarium {
    */
   private ListObj<Food> listFood = new ListObj<>();
   
+  private static final String imageAquarium = "img/Aquarium.jpg";
+  private static final String imageWin = "img/win.png";
+  private static final String imageLose = "img/lose.png";
+
   /**
    * Mengambil daftar guppy pada akuarium.
    * @return listGuppy
@@ -93,6 +97,27 @@ public class Aquarium {
    */
   public Account getAccount() {
     return player;
+  }
+
+  /**
+   * @return the imageAquarium
+   */
+  public static String getImageAquarium() {
+    return imageAquarium;
+  }
+
+  /**
+   * @return the imageLose
+   */
+  public static String getImageLose() {
+    return imageLose;
+  }
+
+  /**
+   * @return the imageWin
+   */
+  public static String getImageWin() {
+    return imageWin;
   }
   
   //setter
@@ -295,8 +320,12 @@ public class Aquarium {
     return player.getEggPhase() >= 3;
   }
 
+  /**
+   * Kalah dari permainan.
+   * @return jika kalah maka return true
+   */
   public boolean lose() {
-    return listGuppy.isEmpty() && listPiranha.isEmpty() && listCoin.isEmpty() && 
-    player.getMoney() < Guppy.getValueGuppy();
+    return listGuppy.isEmpty() && listPiranha.isEmpty() && listCoin.isEmpty()
+      && player.getMoney() < Guppy.getValueGuppy();
   }
 }

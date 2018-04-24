@@ -1,13 +1,16 @@
 import javax.swing.*;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.lang.System;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 
 public class Arkavquarium extends JFrame {
   public static void main(String[] args) {
-    Display a = new Display();
     /*
     a.drawImage("img/Coin.png", 50, 50);
     a.drawImage("img/Coin.png", 10, 10);        
@@ -37,8 +40,12 @@ public class Arkavquarium extends JFrame {
     aquarium.add(guppy1);
 
     setSize(screenWidth, screenHeight);
+
     AquariumDisplay aquariumDisplay = new AquariumDisplay(this);
     add(aquariumDisplay);
+    
+    aquariumDisplay.start();
+
 
     // membuat frame visible
     setVisible(true);        

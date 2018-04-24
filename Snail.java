@@ -11,7 +11,7 @@ import java.lang.Comparable;
 * @version 22 April 2018 
 */
 
-class Snail extends Summonable implements Comparable<Snail> {
+class Snail extends Summonable implements Comparable {
   private static final int speed_snail = 15; //mencatat kecepatan untuk Snail
   private static final int radius_snail = 22;
   private static String[] image_snail = {"img/LSnail.png", "img/RSnail.png"}; 

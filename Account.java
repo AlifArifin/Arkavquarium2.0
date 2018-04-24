@@ -18,7 +18,7 @@ public class Account {
   /**
    * Harga telur untuk menambah fase telur.
    */
-  private final int eggPrice = 1000;
+  private final int eggValue = 1000;
   
   /**
    * Mengambil jumlah uang yang terdapat pada akun.
@@ -26,6 +26,14 @@ public class Account {
    */
   public int getMoney() {
     return money;
+  }
+
+  /**
+   * Getter eggValue.
+   * @return the eggValue
+   */
+  public int getEggValue() {
+    return eggValue;
   }
 
   /**
@@ -43,70 +51,46 @@ public class Account {
   public void addMoney(int val) {
     money += val;
   }
-
+  
   /**
-   * Membeli sebuah guppy.
-   * @return status apakah pembelian berhasil atau tidak
-   *         Jika jumlah uang cukup untuk membeli guppy, akan mengembalikan ture
-   *         Kemudian membeli guppy
-   *         Jika tidak, mengembalikan false
-   */
-  public boolean buyGuppy() {
-    if (money >= Guppy.getValueGuppy()) {
-      money -= Guppy.getValueGuppy();        
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Membeli sebuah Piranha.
+   * Mengecek apakah uang cukup untuk membeli something (something itu udah harganya).
+   * 
    * @return status apakah pembelian berhasil atau tidak
    *         Jika jumlah uang cukup untuk membeli piranha, akan mengembalikan ture
    *         Kemudian membeli piranha
    *         Jika tidak, mengembalikan false
    */
-  public boolean buyPiranha() {
-    if (money >= Piranha.getValuePiranha()) {
-      money -= Piranha.getValuePiranha();
-      return true;
-    } else {
-      return false;
-    }
+  public boolean moneyEnough(int something) {
+    return money >= something;
+  }
+  
+  /**
+   * Membeli sebuah guppy.
+   */
+  public void buyGuppy() {
+    money -= Guppy.getValueGuppy();        
+  }
+  
+  /**
+   * Membeli sebuah Piranha.
+   */
+  public void buyPiranha() {
+    money -= Piranha.getValuePiranha();
   }
 
   /**
    * Membeli sebuah makanan ikan.
-   * @return status apakah pembelian berhasil atau tidak
-   *         Jika jumlah uang cukup untuk membeli makanan ikan, akan mengembalikan true
-   *         Kemudian membeli makanan ikan
-   *         Jika tidak, mengembalikan false
    */
-  public boolean buyFood() {
-    if (money >= Food.getValueFood()) {
-      money -= Food.getValueFood();
-      return true;
-    } else {
-      return false;
-    }
+  public void buyFood() {
+    money -= Food.getValueFood();
   }
 
   /**
    * Membeli sebuah telur.
-   * @return status apakah pembelian berhasil atau tidak
-   *         Jika jumlah uang cukup untuk membeli telur, akan mengembalikan true
-   *         Kemudian membeli telur, dan menambah jumlah telur yang dimiliki
-   *         Jika tidak, mengembalikan false
    */
-  public boolean buyEgg() {
-    if (money >= eggPrice) { 
-      money -= eggPrice;
-      eggPhase = eggPhase + 1;
-      return true;
-    } else {
-      return false;
-    }
+  public void buyEgg() {
+    money -= eggValue;
+    eggPhase = eggPhase + 1;
   }
 
   /**
