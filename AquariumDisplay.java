@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,11 +9,14 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.InterruptedException;
 import java.lang.System;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * Class AquariumDisplay.
@@ -35,7 +39,7 @@ public class AquariumDisplay extends JPanel {
    * @param arkav menyimpan Arkavquarium
    */
   public AquariumDisplay(Arkavquarium arkav) {
-    
+    super();
     // membuat focus
     setFocusable(true);
     this.arkav = arkav;
@@ -43,16 +47,19 @@ public class AquariumDisplay extends JPanel {
     win = false;
 
     addKeyListener(new MyKeyListener());
+    addMouseListener(new MyMouseListener());
+    System.out.println("lala");
   }
 
   /**
    * Membuat program berjalan.
    */
-  public void start() {
+  public void start(Arkavquarium arkav) {
     boolean quit = false;
     double now = getTime();
     double prev;
     double elapsedTime;
+    // Timer timer = new Timer(40, this);
 
     while (!quit) {
       prev = now;
@@ -60,10 +67,11 @@ public class AquariumDisplay extends JPanel {
       
       // perbedaan waktu setelah pergerakan terakhir
       elapsedTime = now - prev;
-
+      
       // removeAll image
       arkav.getAquarium().moveAll(elapsedTime);
-      paintComponent(getGraphics());
+      repaint();
+      //paintComponent(getGraphics());
 
       // check win or lose
       if (arkav.getAquarium().win()) {
@@ -73,6 +81,8 @@ public class AquariumDisplay extends JPanel {
         win = false;
         return;
       }
+
+      //arkav.setVisible(true);
     }
     return;
   }
@@ -94,7 +104,8 @@ public class AquariumDisplay extends JPanel {
    * {@inheritDoc}
    */
   @Override
-  protected void paintComponent(Graphics g) {
+  protected void paintComponent(Graphics g1) {
+    Graphics2D g = (Graphics2D)g1;
     super.paintComponent(g);
 
     // menggambar aquarium
@@ -102,8 +113,7 @@ public class AquariumDisplay extends JPanel {
 
     try {
       image = ImageIO.read(new File(Aquarium.getImageAquarium()));
-      g.drawImage(image, Arkavquarium.getScreenWidth() / 2, Arkavquarium.getScreenHeight() / 2,
-          this);
+      g.drawImage(image, 0, 0, this);
     } catch (IOException ex) {
       System.out.println(ex);
     }
@@ -113,8 +123,8 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listSnail.size(); i++) {
       try {
         image = ImageIO.read(new File(listSnail.get(i).getImage()));
-        g.drawImage(image, (int) listSnail.get(i).getPosition().getX(), 
-            (int) listSnail.get(i).getPosition().getY(), this);
+        g.drawImage(image, (int) listSnail.get(i).getPosition().getX() - Snail.getRadiusSnail(), 
+            (int) listSnail.get(i).getPosition().getY() - Snail.getRadiusSnail(), this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -125,8 +135,9 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listPiranha.size(); i++) {
       try {
         image = ImageIO.read(new File(listPiranha.get(i).getImage()));
-        g.drawImage(image, (int) listPiranha.get(i).getPosition().getX(), 
-            (int) listPiranha.get(i).getPosition().getY(), this);
+        g.drawImage(image, (int) listPiranha.get(i).getPosition().getX()
+            - Piranha.getRadiusPiranha(), (int) listPiranha.get(i).getPosition().getY()
+            - Piranha.getRadiusPiranha(), this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -137,8 +148,8 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listGuppy.size(); i++) {
       try {
         image = ImageIO.read(new File(listGuppy.get(i).getImage()));
-        g.drawImage(image, (int) listGuppy.get(i).getPosition().getX(), 
-            (int) listGuppy.get(i).getPosition().getY(), this);
+        g.drawImage(image, (int) listGuppy.get(i).getPosition().getX() - Guppy.getRadiusGuppy(), 
+            (int) listGuppy.get(i).getPosition().getY() - Guppy.getRadiusGuppy(), this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -149,8 +160,8 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listFood.size(); i++) {
       try {
         image = ImageIO.read(new File(Food.getImage()));
-        g.drawImage(image, (int) listFood.get(i).getPosition().getX(), 
-            (int) listFood.get(i).getPosition().getY(), this);
+        g.drawImage(image, (int) listFood.get(i).getPosition().getX() - Food.getRadiusFood(), 
+            (int) listFood.get(i).getPosition().getY() - Food.getRadiusFood(), this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -161,8 +172,8 @@ public class AquariumDisplay extends JPanel {
     for (int i = 0; i < listCoin.size(); i++) {
       try {
         image = ImageIO.read(new File(Coin.getImage()));
-        g.drawImage(image, (int) listCoin.get(i).getPosition().getX(), 
-            (int) listCoin.get(i).getPosition().getY(), this);
+        g.drawImage(image, (int) listCoin.get(i).getPosition().getX() - Coin.getRadiusCoin(), 
+            (int) listCoin.get(i).getPosition().getY() - Coin.getRadiusCoin(), this);
       } catch (IOException ex) {
         System.out.println(ex);
       }
@@ -172,14 +183,14 @@ public class AquariumDisplay extends JPanel {
       if (win) {
         try {
           image = ImageIO.read(new File(Aquarium.getImageWin()));
-          g.drawImage(image, Arkavquarium.getScreenWidth(), Arkavquarium.getScreenHeight(), this);
+          g.drawImage(image, 100, 100, this);
         } catch (IOException ex) {
           System.out.println(ex);
         }
       } else {
         try {
           image = ImageIO.read(new File(Aquarium.getImageLose()));
-          g.drawImage(image, Arkavquarium.getScreenWidth(), Arkavquarium.getScreenHeight(), this);
+          g.drawImage(image, 100, 100, this);
         } catch (IOException ex) {
           System.out.println(ex);
         }

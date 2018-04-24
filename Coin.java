@@ -12,7 +12,7 @@ public class Coin extends Summonable implements Comparable<Coin> {
   private final int value; // harga coin
   private static final int speedCoin = 20; // kecepatan gerak coin
   private static final int radiusCoin = 10; // radius dari coin
-  private static final String image = "img/Food.png"; // mencatat gambar coin
+  private static final String image = "img/Coin.png"; // mencatat gambar coin
   
   /**
    * User-defined coin constructor.

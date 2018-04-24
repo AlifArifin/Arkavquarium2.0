@@ -8,7 +8,7 @@ public class Account {
   /**
    * Jumlah uang pada player.
    */
-  private int money = 20000;
+  private int money = 500;
   
   /**
    * Jumlah telur yang sudah dibeli.

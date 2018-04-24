@@ -7,12 +7,12 @@ public class Aquarium {
   /**
    * Matriks yang menggambarkan posisi tiap - tiap objek dalam akuarium.
    */
-  private Matrix aquariumMatrix;
+  private Matrix aquariumMatrix = new Matrix();
   
   /**
    * Akun player yang dapat mengendalikan akuarium ini.
    */
-  private Account player;
+  private Account player = new Account();
   
   /**
    * Daftar guppy yang ada dalam akuarium.
@@ -42,6 +42,13 @@ public class Aquarium {
   private static final String imageAquarium = "img/Aquarium.jpg";
   private static final String imageWin = "img/win.png";
   private static final String imageLose = "img/lose.png";
+
+  /**
+   * konstruktor
+   */
+  public Aquarium() {
+    
+  }
 
   /**
    * Mengambil daftar guppy pada akuarium.

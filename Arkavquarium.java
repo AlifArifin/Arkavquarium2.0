@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.lang.System;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  * Kelas Arkavquarium.
@@ -25,12 +27,7 @@ public class Arkavquarium extends JFrame {
    * @param args argumen dari main
    */
   public static void main(String[] args) {
-    /*
-    a.drawImage("img/Coin.png", 50, 50);
-    a.drawImage("img/Coin.png", 10, 10);        
-    //a.drawText("HALLO", 100, 100);
-    a.drawImage("img/Coin.png", 100, 100);        
-    */
+    Arkavquarium arkav = new Arkavquarium();
   }
 
   private Aquarium aquarium;
@@ -50,23 +47,27 @@ public class Arkavquarium extends JFrame {
 
     // make a point
     Point point1 = new Point(200, 200);
+    Point point2 = new Point(150, 200);
 
     // make guppy
     Guppy guppy1 = new Guppy(point1);
+    Snail snail1 = new Snail(point2);
 
     // add guppy
     aquarium.add(guppy1);
+    aquarium.add(snail1);
 
     setSize(screenWidth, screenHeight);
 
+    //add(new JLabel(new ImageIcon("img/Aquarium.jpg")), BorderLayout.SOUTH);
     AquariumDisplay aquariumDisplay = new AquariumDisplay(this);
-    add(aquariumDisplay);
+    add(aquariumDisplay, BorderLayout.CENTER);
+    setVisible(true);        
     
-    aquariumDisplay.start();
+    aquariumDisplay.start(this);
 
 
     // membuat frame visible
-    setVisible(true);        
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
