@@ -1,15 +1,29 @@
-import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.lang.System;
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.io.File;
-import java.awt.image.BufferedImage;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.lang.System;
 
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+
+/**
+ * Kelas Arkavquarium.
+ * Window dari game arkavquarium
+ * 
+ * @author Muhammad Alif Arifin/13516078
+ * @version 24 April 2018
+ */
 public class Arkavquarium extends JFrame {
+  
+  /**
+   * Main program.
+   * 
+   * @param args argumen dari main
+   */
   public static void main(String[] args) {
     /*
     a.drawImage("img/Coin.png", 50, 50);
@@ -19,11 +33,15 @@ public class Arkavquarium extends JFrame {
     */
   }
 
+  private Aquarium aquarium;
   private static final int screenWidth = 640;
   private static final int screenHeight = 480;
-  private static final String fontName = "fonts/OpenSans-Regular.ttf";
-  private Aquarium aquarium;
-
+  //private static final String fontName = "fonts/OpenSans-Regular.ttf";
+  private static final long serialVersionUID = 1L;
+  
+  /**
+   * Konstruktor dari arkavquarium.
+   */
   public Arkavquarium() {
     super("Arkavquarium");
     
@@ -53,6 +71,8 @@ public class Arkavquarium extends JFrame {
   }
 
   /**
+   * getter dari aquarium.
+   * 
    * @return the aquarium
    */
   public Aquarium getAquarium() {
@@ -60,6 +80,8 @@ public class Arkavquarium extends JFrame {
   }
 
   /**
+   * getter dari screenHeight.
+   * 
    * @return the screenHeight
    */
   public static int getScreenHeight() {
@@ -67,6 +89,8 @@ public class Arkavquarium extends JFrame {
   }
 
   /**
+   * getter dari screenWidth.
+   * 
    * @return the screenWidth
    */
   public static int getScreenWidth() {

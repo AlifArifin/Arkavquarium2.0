@@ -18,7 +18,7 @@ public class Account {
   /**
    * Harga telur untuk menambah fase telur.
    */
-  private final int eggValue = 1000;
+  private static final int valueEgg = 1000;
   
   /**
    * Mengambil jumlah uang yang terdapat pada akun.
@@ -29,11 +29,11 @@ public class Account {
   }
 
   /**
-   * Getter eggValue.
-   * @return the eggValue
+   * Getter valueEgg.
+   * @return the valueEgg
    */
-  public int getEggValue() {
-    return eggValue;
+  public static int getValueEgg() {
+    return valueEgg;
   }
 
   /**
@@ -89,7 +89,7 @@ public class Account {
    * Membeli sebuah telur.
    */
   public void buyEgg() {
-    money -= eggValue;
+    money -= valueEgg;
     eggPhase = eggPhase + 1;
   }
 
