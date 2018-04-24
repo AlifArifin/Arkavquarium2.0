@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 /**
  * Kelas yang menggambarkan keadaan sebuah akuraium dalam permainan.
  * @author Iqrar Aminullah 13516126
@@ -282,8 +280,23 @@ public class Aquarium {
         Coin c = listCoin.get(idx);
         listCoin.removeIdx(idx);
 
-        Account.addMoney(c.getValue());
+        player.addMoney(c.getValue());
       }
     }     
+  }
+
+  /**
+   * Memenangkan permainan.
+   * @return status apakah sudah menang atau tidak
+   *         Jika jumlah telur yang sudah dibeli>=3, mengembalikan true
+   *         Jika tidak, mengembalikan false
+   */
+  public boolean win() {
+    return player.getEggPhase() >= 3;
+  }
+
+  public boolean lose() {
+    return listGuppy.isEmpty() && listPiranha.isEmpty() && listCoin.isEmpty() && 
+    player.getMoney() < Guppy.getValueGuppy();
   }
 }

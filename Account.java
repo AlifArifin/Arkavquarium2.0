@@ -8,23 +8,23 @@ public class Account {
   /**
    * Jumlah uang pada player.
    */
-  private static int money = 20000;
+  private int money = 20000;
   
+  /**
+   * Jumlah telur yang sudah dibeli.
+   */
+  private int eggPhase = 0;
+
   /**
    * Harga telur untuk menambah fase telur.
    */
   private final int eggPrice = 1000;
   
   /**
-   * Jumlah telur yang sudah dibeli.
-   */
-  private static int eggPhase = 0;
-  
-  /**
    * Mengambil jumlah uang yang terdapat pada akun.
    * @return jumlah money pada akun ini
    */
-  public static int getMoney() {
+  public int getMoney() {
     return money;
   }
 
@@ -32,7 +32,7 @@ public class Account {
    * Merubah jumlah uang yang terdapat pada akun ini.
    * @param m Jumlah uang baru untuk akun ini
    */
-  public static void setMoney(int m) {
+  public void setMoney(int m) {
     money = m;
   }
 
@@ -40,7 +40,7 @@ public class Account {
    * Menambahkan sejumlah uang ke dalam jumlah uang pada akun ini.
    * @param val Jumlah uang yang ingin ditambahkan ke akun ini
    */
-  public static void addMoney(int val) {
+  public void addMoney(int val) {
     money += val;
   }
 
@@ -107,16 +107,6 @@ public class Account {
     } else {
       return false;
     }
-  }
-
-  /**
-   * Memenangkan permainan.
-   * @return status apakah sudah menang atau tidak
-   *         Jika jumlah telur yang sudah dibeli>=3, mengembalikan true
-   *         Jika tidak, mengembalikan false
-   */
-  public boolean win() {
-    return eggPhase >= 3;
   }
 
   /**
