@@ -1,3 +1,5 @@
+import java.lang.Comparable;
+
 /**
 * Class Snail.
 * A snail object has attribute integer type speed_snail and radius snail,

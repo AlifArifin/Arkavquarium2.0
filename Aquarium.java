@@ -220,38 +220,6 @@ public class Aquarium {
   }
   
   /**
-   * Menampilkan seluruh ikan pada akuarium.
-   */
-  public void showAll() {
-    /*
-    for (int i = 0; i < listSnail.size(); i++) {
-      draw_image(listSnail.get(i).getImage(), listSnail.get(i).getPosition().getX(), 
-      listSnail.get(i).getPosition().getY());
-    }
-    
-    for (int i = 0; i < listPiranha.size(); i++) {
-      draw_image(listPiranha.get(i).getImage(), listPiranha.get(i).getPosition().getX(), 
-      listPiranha.get(i).getPosition().getY());
-    }
-    
-    for (int i = 0; i < listGuppy.size(); i++) {
-      draw_image(listGuppy.get(i).getImage(), listGuppy.get(i).getPosition().getX(), 
-      listGuppy.get(i).getPosition().getY());
-    }
-
-    for (int i = 0; i < listFood.size(); i++) {
-      draw_image(listFood.get(i).getImage(), listFood.get(i).getPosition().getX(), 
-      listFood.get(i).getPosition().getY());
-    }
-    
-    for (int i = 0; i < listCoin.size(); i++) {
-      draw_image(listCoin.get(i).getImage(), listCoin.get(is).getPosition().getX(), 
-      listCoin.get(i).getPosition().getY());
-    }
-    */
-  }
-  
-  /**
    * Menggerakkan semua objek yang ada dalam akuarium.
    * @param time waktu setelah pergerakan sebelumnya
    */
@@ -312,8 +280,23 @@ public class Aquarium {
         Coin c = listCoin.get(idx);
         listCoin.removeIdx(idx);
 
-        Account.addMoney(c.getValue());
+        player.addMoney(c.getValue());
       }
     }     
+  }
+
+  /**
+   * Memenangkan permainan.
+   * @return status apakah sudah menang atau tidak
+   *         Jika jumlah telur yang sudah dibeli>=3, mengembalikan true
+   *         Jika tidak, mengembalikan false
+   */
+  public boolean win() {
+    return player.getEggPhase() >= 3;
+  }
+
+  public boolean lose() {
+    return listGuppy.isEmpty() && listPiranha.isEmpty() && listCoin.isEmpty() && 
+    player.getMoney() < Guppy.getValueGuppy();
   }
 }
