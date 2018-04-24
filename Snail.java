@@ -63,7 +63,7 @@ class Snail extends Summonable implements Comparable<Snail> {
   */
   @Override
   public void setDirection(int d) {
-    if (d >= 90 && d <= 270) {
+    if (d >= 90 && d < 270) {
       direction = 180;
       image = imageSnail[0];
     } else {
@@ -121,14 +121,16 @@ class Snail extends Summonable implements Comparable<Snail> {
       Coin c = coinList.get(idxCoin);
       double a = position.patan2(c.getPosition());
       int dir = (int) ((a * 180.0 / PI) % 360 + 360) % 360;
+      //System.out.printf("%d\n", dir);
       setDirection(dir);
       if (position.isInRadius(c.getPosition(), Coin.getRadiusCoin() + radiusSnail)) {
         return idxCoin;
       } else if ((int) position.getX() == (int) c.getPosition().getX()) {
         return -1;
       } else {
+        //System.out.printf("%f %f\n", Math.abs(position.getX() - c.getPosition().getX()), (speedSnail * Math.cos(direction * PI / 180) * time));
         if (Math.abs(position.getX() - c.getPosition().getX()) <= 
-          (speedSnail * Math.cos(direction * PI / 180) * time)) {
+          Math.abs(speedSnail * Math.cos(direction * PI / 180) * time)) {
           position.setX(c.getPosition().getX());
         } else {
           position.setX(position.getX() + speedSnail * Math.cos(direction * PI / 180) * time);
