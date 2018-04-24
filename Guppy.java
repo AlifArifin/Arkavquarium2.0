@@ -273,7 +273,7 @@ public class Guppy extends Fish implements Comparable<Guppy> {
       direction = rand.nextInt(180) + 90;
     }
     if (position.isOutTop(radiusGuppy * phase)) {
-      position.setY(radiusGuppy * phase);
+      position.setY(radiusGuppy * phase + 75);
       direction = rand.nextInt(180);
     } else if (position.isOutBottom(radiusGuppy * phase)) {
       position.setY(Matrix.getRow() - 1 - radiusGuppy * phase);

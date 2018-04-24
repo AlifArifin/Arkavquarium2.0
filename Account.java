@@ -15,11 +15,27 @@ public class Account {
    */
   private int eggPhase = 0;
 
+  private String image;
+
   /**
    * Harga telur untuk menambah fase telur.
    */
   private static final int valueEgg = 1000;
   
+  private static final String[] imageEgg = {
+    "img/egg1.png", "img/egg2.png", "img/egg3.png", "img/egg3.png"};
+
+  public Account() {
+    image = imageEgg[0];
+  }
+
+  /**
+   * @return the image
+   */
+  public String getImage() {
+    return image;
+  }
+
   /**
    * Mengambil jumlah uang yang terdapat pada akun.
    * @return jumlah money pada akun ini
@@ -91,6 +107,7 @@ public class Account {
   public void buyEgg() {
     money -= valueEgg;
     eggPhase = eggPhase + 1;
+    image = imageEgg[eggPhase];
   }
 
   /**

@@ -9,7 +9,7 @@
  */
 
 class Matrix {
-  private static final int row = 440;
+  private static final int row = 515;
   private static final int column = 640;
   private int[][] data;
 

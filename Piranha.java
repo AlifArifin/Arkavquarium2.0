@@ -135,7 +135,7 @@ public class Piranha extends Fish implements Comparable<Piranha> {
       direction = rand.nextInt(180) + 90;
     }
     if (position.isOutTop(radiusPiranha)) {
-      position.setY(radiusPiranha);
+      position.setY(radiusPiranha  + 75);
       direction = rand.nextInt(180);
     } else if (position.isOutBottom(radiusPiranha)) {
       position.setY(Matrix.getRow() - 1 - radiusPiranha);

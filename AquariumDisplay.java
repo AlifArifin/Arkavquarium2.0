@@ -1,4 +1,7 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
@@ -29,6 +32,7 @@ public class AquariumDisplay extends JPanel {
 
   // atribut
   private Arkavquarium arkav;
+  private boolean menu;
   private boolean done;
   private boolean win;
   private static final long serialVersionUID = 1L;
@@ -36,7 +40,7 @@ public class AquariumDisplay extends JPanel {
   /**
    * Constructor Aquarium.
    * 
-   * @param arkav menyimpan Arkavquarium
+   * @param arkavNew menyimpan Arkavquarium
    */
   public AquariumDisplay(Arkavquarium arkavNew) {
     super();
@@ -45,10 +49,10 @@ public class AquariumDisplay extends JPanel {
     this.arkav = arkavNew;
     done = false;
     win = false;
+    menu = true;
 
     addKeyListener(new MyKeyListener());
     addMouseListener(new MyMouseListener());
-    System.out.println("lala");
   }
 
   /**
@@ -62,36 +66,36 @@ public class AquariumDisplay extends JPanel {
     // Timer timer = new Timer(40, this);
 
     while (!quit) {
-      prev = now;
-      now = getTime();
-      
-      // perbedaan waktu setelah pergerakan terakhir
-      elapsedTime = now - prev;
-      
-      // removeAll image
-      arkav.getAquarium().moveAll(elapsedTime);
-      //paintComponent(getGraphics());
-
-      // check win or lose
-      if (arkav.getAquarium().win()) {
-        done = true;
-        win = true;
+      if (menu) {
         repaint();
-        return;
-      } else if (arkav.getAquarium().lose()) {
-        done = true;
-        win = false;
-        repaint();
-        return;
       } else {
-        repaint();
+        prev = now;
+        now = getTime();
+        
+        // perbedaan waktu setelah pergerakan terakhir
+        elapsedTime = now - prev;
+        
+        // removeAll image
+        arkav.getAquarium().moveAll(elapsedTime);
+        //paintComponent(getGraphics());
+
+        // check win or lose
+        if (arkav.getAquarium().win()) {
+          done = true;
+          win = true;
+          repaint();
+          return;
+        } else if (arkav.getAquarium().lose()) {
+          done = true;
+          win = false;
+          repaint();
+          return;
+        } else {
+          repaint();
+        }
       }
     }
     return;
-  }
-
-  public void done() {
-    paintComponent(getGraphics());
   }
 
   /**
@@ -113,108 +117,148 @@ public class AquariumDisplay extends JPanel {
 
     // menggambar aquarium
     BufferedImage image;
-
-    // draw string
-
-    try {
-      image = ImageIO.read(new File(Aquarium.getImageAquarium()));
-      g.drawImage(image, 0, 0, this);
-    } catch (IOException ex) {
-      System.out.println(ex);
-    }
-
-    // menggambar snail
-    ListObj<Snail> listSnail = arkav.getAquarium().getListSnail();
-    for (int i = 0; i < listSnail.size(); i++) {
-      try {
-        image = ImageIO.read(new File(listSnail.get(i).getImage()));
-        g.drawImage(image, (int) listSnail.get(i).getPosition().getX() - image.getWidth() / 2, 
-            (int) listSnail.get(i).getPosition().getY() - image.getHeight() / 2, this);
-      } catch (IOException ex) {
-        System.out.println(ex);
-      } catch (NullPointerException ex) {
-        
-      }
-    }
     
-    // menggambar piranha
-    ListObj<Piranha> listPiranha = arkav.getAquarium().getListPiranha();
-    for (int i = 0; i < listPiranha.size(); i++) {
+    if (menu) {
       try {
-        image = ImageIO.read(new File(listPiranha.get(i).getImage()));
-        g.drawImage(image, (int) listPiranha.get(i).getPosition().getX() - image.getWidth() / 2,
-            (int) listPiranha.get(i).getPosition().getY() - image.getHeight() / 2, this);
+        image = ImageIO.read(new File("img/mainmenu.png"));
+        g.drawImage(image, 0, 0, this);
       } catch (IOException ex) {
         System.out.println(ex);
-      } catch (NullPointerException ex) {
-        
+      }  
+    } else {
+      
+      try {
+        image = ImageIO.read(new File(Arkavquarium.getImageMenubar()));
+        g.drawImage(image, 0, 0, this);
+      } catch (IOException ex) {
+        System.out.println(ex);
       }
-    }
-    
-    // menggambar guppy
-    ListObj<Guppy> listGuppy = arkav.getAquarium().getListGuppy();
-    for (int i = 0; i < listGuppy.size(); i++) {
+
       try {
-        image = ImageIO.read(new File(listGuppy.get(i).getImage()));
-        g.drawImage(image, (int) listGuppy.get(i).getPosition().getX() - image.getWidth() / 2, 
-            (int) listGuppy.get(i).getPosition().getY() - image.getHeight() / 2, this);
+        image = ImageIO.read(new File(Arkavquarium.getImageMbuttono()));
+        g.drawImage(image, 23, 3, this);
+        image = ImageIO.read(new File(Arkavquarium.getImageMbuttono()));
+        g.drawImage(image, 92, 3, this);
+        image = ImageIO.read(new File(Arkavquarium.getImageMbuttono()));
+        g.drawImage(image, 441, 3, this);
       } catch (IOException ex) {
         System.out.println(ex);
-      } catch (NullPointerException ex) {
-        
       }
-    }
-  
-    // menggambar food
-    ListObj<Food> listFood = arkav.getAquarium().getListFood();
-    if (!listFood.isEmpty()) {
-      g.drawString(Double.toString(listFood.get(0).getPosition().getY()), 100, 440);
-    }
 
-    for (int i = 0; i < listFood.size(); i++) {
       try {
-        image = ImageIO.read(new File(Food.getImage()));
-        g.drawImage(image, (int) listFood.get(i).getPosition().getX() - image.getWidth() / 2, 
-            (int) listFood.get(i).getPosition().getY() - image.getHeight() / 2, this);
+        image = ImageIO.read(new File(Guppy.getImageGuppy()[0][0]));
+        g.drawImage(image, 25, 5, this);
+        image = ImageIO.read(new File("img/Piranhamini.png"));
+        g.drawImage(image, 94, 5, this);
+        image = ImageIO.read(new File(arkav.getAquarium().getAccount().getImage()));
+        g.drawImage(image, 450, 5, this);
       } catch (IOException ex) {
         System.out.println(ex);
-      } catch (NullPointerException ex) {
-
       }
-    }
-    
-    // menggambar coin
-    ListObj<Coin> listCoin = arkav.getAquarium().getListCoin();
-    for (int i = 0; i < listCoin.size(); i++) {
+      
+      Font font = new Font("Courier New", Font.PLAIN, 12);
+      setFont(font);
+
+      g.setColor(Color.GREEN);
+      g.drawString(Integer.toString(Guppy.getValueGuppy()), 36, 58);
+      g.drawString(Integer.toString(Piranha.getValuePiranha()), 105, 58);
+      g.drawString(Integer.toString(Account.getValueEgg()), 451, 58);
+      g.drawString(Integer.toString(arkav.getAquarium().getAccount().getMoney()), 550, 55);
+
       try {
-        image = ImageIO.read(new File(Coin.getImage()));
-        g.drawImage(image, (int) listCoin.get(i).getPosition().getX() - image.getWidth() / 2, 
-            (int) listCoin.get(i).getPosition().getY() - image.getHeight() / 2, this);
+        image = ImageIO.read(new File(Aquarium.getImageAquarium()));
+        g.drawImage(image, 0, 75, this);
       } catch (IOException ex) {
         System.out.println(ex);
-      } catch (NullPointerException ex) {
+      }
 
-      } 
-    }
-
-    g.drawString(Integer.toString(arkav.getAquarium().getAccount().getMoney()), 100, 100);    
-    
-    if (done) {
-      if (win) {
+      // menggambar snail
+      ListObj<Snail> listSnail = arkav.getAquarium().getListSnail();
+      for (int i = 0; i < listSnail.size(); i++) {
         try {
-          image = ImageIO.read(new File(Aquarium.getImageWin()));
-          g.drawImage(image, Arkavquarium.getScreenWidth() / 2 - image.getWidth() / 2,
-            Arkavquarium.getScreenHeight() / 2 - image.getHeight() / 2, this);
+          image = ImageIO.read(new File(listSnail.get(i).getImage()));
+          g.drawImage(image, (int) listSnail.get(i).getPosition().getX() - image.getWidth() / 2, 
+              (int) listSnail.get(i).getPosition().getY() - image.getHeight() / 2, this);
         } catch (IOException ex) {
+          System.out.println(ex);
+        } catch (NullPointerException ex) {
           System.out.println(ex);
         }
-      } else {
+      }
+      
+      // menggambar piranha
+      ListObj<Piranha> listPiranha = arkav.getAquarium().getListPiranha();
+      for (int i = 0; i < listPiranha.size(); i++) {
         try {
-          image = ImageIO.read(new File(Aquarium.getImageLose()));
-          g.drawImage(image, Arkavquarium.getScreenWidth() / 2 - image.getWidth() / 2,
-            Arkavquarium.getScreenHeight() / 2 - image.getHeight() / 2, this);
+          image = ImageIO.read(new File(listPiranha.get(i).getImage()));
+          g.drawImage(image, (int) listPiranha.get(i).getPosition().getX() - image.getWidth() / 2,
+              (int) listPiranha.get(i).getPosition().getY() - image.getHeight() / 2, this);
         } catch (IOException ex) {
           System.out.println(ex);
+        } catch (NullPointerException ex) {
+          System.out.println(ex);
+        }
+      }
+      
+      // menggambar guppy
+      ListObj<Guppy> listGuppy = arkav.getAquarium().getListGuppy();
+      for (int i = 0; i < listGuppy.size(); i++) {
+        try {
+          image = ImageIO.read(new File(listGuppy.get(i).getImage()));
+          g.drawImage(image, (int) listGuppy.get(i).getPosition().getX() - image.getWidth() / 2, 
+              (int) listGuppy.get(i).getPosition().getY() - image.getHeight() / 2, this);
+        } catch (IOException ex) {
+          System.out.println(ex);
+        } catch (NullPointerException ex) {
+          System.out.println(ex);
+        }
+      }
+    
+      // menggambar food
+      ListObj<Food> listFood = arkav.getAquarium().getListFood();
+      for (int i = 0; i < listFood.size(); i++) {
+        try {
+          image = ImageIO.read(new File(Food.getImage()));
+          g.drawImage(image, (int) listFood.get(i).getPosition().getX() - image.getWidth() / 2, 
+              (int) listFood.get(i).getPosition().getY() - image.getHeight() / 2, this);
+        } catch (IOException ex) {
+          System.out.println(ex);
+        } catch (NullPointerException ex) {
+          System.out.println(ex);
+        }
+      }
+      
+      // menggambar coin
+      ListObj<Coin> listCoin = arkav.getAquarium().getListCoin();
+      for (int i = 0; i < listCoin.size(); i++) {
+        try {
+          image = ImageIO.read(new File(Coin.getImage()));
+          g.drawImage(image, (int) listCoin.get(i).getPosition().getX() - image.getWidth() / 2, 
+              (int) listCoin.get(i).getPosition().getY() - image.getHeight() / 2, this);
+        } catch (IOException ex) {
+          System.out.println(ex);
+        } catch (NullPointerException ex) {
+          System.out.println(ex);
+        } 
+      }
+      
+      if (done) {
+        if (win) {
+          try {
+            image = ImageIO.read(new File(Aquarium.getImageWin()));
+            g.drawImage(image, Arkavquarium.getScreenWidth() / 2 - image.getWidth() / 2,
+                Arkavquarium.getScreenHeight() / 2 - image.getHeight() / 2 + 75, this);
+          } catch (IOException ex) {
+            System.out.println(ex);
+          }
+        } else {
+          try {
+            image = ImageIO.read(new File(Aquarium.getImageLose()));
+            g.drawImage(image, Arkavquarium.getScreenWidth() / 2 - image.getWidth() / 2,
+                Arkavquarium.getScreenHeight() / 2 - image.getHeight() / 2 + 75, this);
+          } catch (IOException ex) {
+            System.out.println(ex);
+          }
         }
       }
     }
@@ -251,39 +295,24 @@ public class AquariumDisplay extends JPanel {
     @Override
     public void keyPressed(KeyEvent e) {
       int keycode = e.getKeyCode();
-      Random rand = new Random();
-      Point tempPoint;
-      int tempRadius;
 
       switch (keycode) {
         case '1':
           // beli Guppy
-          if (arkav.getAquarium().getAccount().moneyEnough(Guppy.getValueGuppy())) {
-            tempRadius = Guppy.getRadiusGuppy();
-            tempPoint = new Point(
-              rand.nextInt(Arkavquarium.getScreenWidth() - 2 * tempRadius) - 1 + tempRadius,
-              rand.nextInt(Arkavquarium.getScreenHeight() - 2 * tempRadius) - 1 + tempRadius);
-              Guppy tempGuppy = new Guppy(tempPoint);
-              arkav.getAquarium().add(tempGuppy);
-              arkav.getAquarium().getAccount().buyGuppy();
+          if (!menu) {
+            wantGuppy();
           }
           break;
         case '2':
           // beli Piranha
-          if (arkav.getAquarium().getAccount().moneyEnough(Piranha.getValuePiranha())) {
-            tempRadius = Piranha.getRadiusPiranha();
-            tempPoint = new Point(
-              rand.nextInt(Arkavquarium.getScreenWidth() - 2 * tempRadius) - 1 + tempRadius,
-              rand.nextInt(Arkavquarium.getScreenHeight() - 2 * tempRadius) - 1 + tempRadius);
-              Piranha tempPiranha = new Piranha(tempPoint);
-              arkav.getAquarium().add(tempPiranha);
-              arkav.getAquarium().getAccount().buyPiranha();
+          if (!menu) {
+            wantPiranha();
           }
           break;
         case '4':
           // beli Egg
-          if (arkav.getAquarium().getAccount().moneyEnough(Account.getValueEgg())) {
-            arkav.getAquarium().getAccount().buyEgg();
+          if (!menu) {
+            wantEgg();
           }
           break;
         default:
@@ -309,21 +338,37 @@ public class AquariumDisplay extends JPanel {
       Point mouseLocation = new Point(e.getX(), e.getY());
 
       boolean find = false;
-
-      ListObj<Coin> listCoin = arkav.getAquarium().getListCoin();
-      for (int i = 0; i < listCoin.size(); i++) {
-        if (mouseLocation.isInRadius(listCoin.get(i).getPosition(), Coin.getRadiusCoin())) {
-          find = true;
-          arkav.getAquarium().getListCoin().removeIdx(i);
-          break;
+      if (menu) {
+        if (menu && e.getY() > 420 && e.getY() < 463 && e.getX() > 204 && e.getX() < 437) {
+          menu = false;
         }
-      }
+      } else {
+        if (e.getY() >= 75) {
+          ListObj<Coin> listCoin = arkav.getAquarium().getListCoin();
+          for (int i = 0; i < listCoin.size(); i++) {
+            if (mouseLocation.isInRadius(listCoin.get(i).getPosition(), Coin.getRadiusCoin())) {
+              find = true;
+              arkav.getAquarium().getListCoin().removeIdx(i);
+              break;
+            }
+          }
 
-      if (!find && arkav.getAquarium().getAccount().moneyEnough(Food.getValueFood())) {
-        Point tempPoint = new Point(e.getX(), 0);
-        Food tempFood = new Food(tempPoint);
-        arkav.getAquarium().getListFood().add(tempFood);
-        arkav.getAquarium().getAccount().buyFood();
+          if (!find && arkav.getAquarium().getAccount().moneyEnough(Food.getValueFood())) {
+            Point tempPoint = new Point(e.getX(), 75);
+            Food tempFood = new Food(tempPoint);
+            arkav.getAquarium().getListFood().add(tempFood);
+            arkav.getAquarium().getAccount().buyFood();
+          }
+        } else {
+          // buy guppy
+          if (e.getX() > 23 && e.getX() < 73 && e.getY() > 3 && e.getY() < 46) {
+            wantGuppy();
+          } else if (e.getX() > 92 && e.getX() < 140 && e.getY() > 3 && e.getY() < 46) {
+            wantPiranha();
+          } else if (e.getX() > 441 && e.getX() < 489 && e.getY() > 3 && e.getY() < 46) {
+            wantEgg();
+          }
+        }
       }
     }
 
@@ -359,4 +404,54 @@ public class AquariumDisplay extends JPanel {
       
     }
   }
+
+  /**
+   * Untuk apabila ingin membeli guppy, melakukan validasi juga di dalam.
+   */
+  public void wantGuppy() {
+    Random rand = new Random();
+    Point tempPoint;
+    int tempRadius;
+
+    // beli Guppy
+    if (arkav.getAquarium().getAccount().moneyEnough(Guppy.getValueGuppy())) {
+      tempRadius = Guppy.getRadiusGuppy();
+      tempPoint = new Point(
+      rand.nextInt(Arkavquarium.getScreenWidth() - 2 * tempRadius) - 1 + tempRadius,
+      rand.nextInt(Arkavquarium.getScreenHeight() - 2 * tempRadius) - 1 + tempRadius + 75);
+      Guppy tempGuppy = new Guppy(tempPoint);
+      arkav.getAquarium().add(tempGuppy);
+      arkav.getAquarium().getAccount().buyGuppy();
+    }
+  }
+  
+  /**
+   * apabila ingin membeli piranha, melakukan validasi di dalam.
+   */
+  public void wantPiranha() {
+    // beli Piranha
+    Random rand = new Random();
+    Point tempPoint;
+    int tempRadius;
+
+    if (arkav.getAquarium().getAccount().moneyEnough(Piranha.getValuePiranha())) {
+      tempRadius = Piranha.getRadiusPiranha();
+      tempPoint = new Point(
+      rand.nextInt(Arkavquarium.getScreenWidth() - 2 * tempRadius) - 1 + tempRadius,
+      rand.nextInt(Arkavquarium.getScreenHeight() - 2 * tempRadius) - 1 + tempRadius + 75);
+      Piranha tempPiranha = new Piranha(tempPoint);
+      arkav.getAquarium().add(tempPiranha);
+      arkav.getAquarium().getAccount().buyPiranha();
+    }
+  }
+
+  /**
+   * apabila ingin membeli telur, melakukan validasi di dalam.
+   */
+  public void wantEgg() {
+    if (arkav.getAquarium().getAccount().moneyEnough(Account.getValueEgg())) {
+      arkav.getAquarium().getAccount().buyEgg();
+    }
+  }
 }
+

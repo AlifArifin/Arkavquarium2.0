@@ -125,7 +125,7 @@ class Point implements Comparable<Point> {
   * @return boolean.  
   */
   public boolean isOutTop(int r) {
-    return (int) ord < r;
+    return (int) ord < (r + 75);
   }
      
   /**
