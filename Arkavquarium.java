@@ -27,27 +27,8 @@ public class Arkavquarium extends JFrame {
    * @param args argumen dari main
    */
   public static void main(String[] args) {
-    Arkavquarium arkav = new Arkavquarium();
-    arkav.done();
-  }
-
-  private Aquarium aquarium;
-  private static final int screenWidth = 640;
-  private static final int screenHeight = 555;
-  //private static final String fontName = "fonts/OpenSans-Regular.ttf";
-  private static final long serialVersionUID = 1L;
-  private static final String imageMenubar = "img/menubar.png";
-  private static final String imageMbuttono = "img/mbuttonu1.png";
-  
-  /**
-   * Konstruktor dari arkavquarium.
-   */
-  public Arkavquarium() {
-    super("Arkavquarium");
-    
     // make a new aquarium
-    aquarium = new Aquarium();
-    
+    Aquarium aquarium = new Aquarium();
     
     // make a point
     Point point1 = new Point(200, 200 + 75);
@@ -66,15 +47,35 @@ public class Arkavquarium extends JFrame {
     aquarium.add(snail1);
     aquarium.add(guppy2);
     
-    setSize(screenWidth, screenHeight);
+    Arkavquarium arkav = new Arkavquarium(aquarium);
+    AquariumDisplay aquariumDisplay = new AquariumDisplay(arkav);
     
-    AquariumDisplay aquariumDisplay = new AquariumDisplay(this);
-    add(aquariumDisplay, BorderLayout.CENTER);
+    arkav.add(aquariumDisplay, BorderLayout.CENTER);
+    arkav.setVisible(true);            
+    aquariumDisplay.start();
+    arkav.done();
+  }
+
+  private Aquarium aquarium;
+  private static final int screenWidth = 640;
+  private static final int screenHeight = 555;
+  //private static final String fontName = "fonts/OpenSans-Regular.ttf";
+  private static final long serialVersionUID = 1L;
+  private static final String imageMenubar = "img/menubar.png";
+  private static final String imageMbuttono = "img/mbuttonu1.png";
+  
+  /**
+   * Konstruktor dari arkavquarium.
+   */
+  public Arkavquarium(Aquarium aquariumNew) {
+    super("Arkavquarium");
+
+    this.aquarium = aquariumNew;
+    // membuat frame visible
     setVisible(true);        
     
-    aquariumDisplay.start();
-
-    // membuat frame visible
+    setSize(screenWidth, screenHeight);
+    
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
