@@ -37,12 +37,12 @@ public class Guppy extends Fish implements Comparable<Guppy> {
   public Guppy(Point point) {
     super(valueGuppy, point);
     Random rand = new Random();
+    this.newY = rand.nextInt(100) + 130;
     this.phase = 1;
     this.foodCount = 0;
     this.countCoin = 0;
     this.image = imageGuppy[0][0];
     this.newInstance = true;
-    this.newY = rand.nextInt(100) + 130;
     position.setY(75);
   }
 
