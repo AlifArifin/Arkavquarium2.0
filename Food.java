@@ -102,4 +102,22 @@ public class Food extends Summonable implements Comparable<Food> {
       return 1;
     }
   }
+
+  /**
+   * getter count.
+   * 
+   * @return the count
+   */
+  public double getCount() {
+    return count;
+  }
+
+  /**
+   * setter count.
+   * 
+   * @param count the count to set
+   */
+  public void setCount(double count) {
+    this.count = count;
+  }
 }

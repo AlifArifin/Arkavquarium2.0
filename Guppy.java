@@ -11,8 +11,8 @@ import java.util.Random;
  * @version 22 April 2018
  */
 public class Guppy extends Fish implements Comparable<Guppy> {
-  protected int phase; // tahap dari guppy 
   protected String image; // menyimpan gambar dari guppy
+  protected int phase; // tahap dari guppy 
   protected int foodCount; // menghitung banyaknya makanan yang telah dimakan
   protected double countCoin; // menghitung jumlah waktu setelah mengeluarkan koin terakhir
   protected static final int coinTime = 8; // periode mengeluarkan koin

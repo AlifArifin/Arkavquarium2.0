@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * Kelas yang menggambarkan keadaan sebuah akuraium dalam permainan.
  * @author Iqrar Aminullah 13516126
@@ -336,10 +339,100 @@ public class Aquarium {
   }
 
   public void save() {
+    PrintWriter writer = new PrintWriter("save/save-1.txt", "UTF-8");
     
+    writer.printf("snail\n");
+    for (int i = 0; i < listSnail.size(); i++) {
+      Snail temp = listSnail.get(i);
+      writer.printf("%f %f | %d | %s\n", temp.position.getX(), temp.position.getY(), 
+        temp.getDirection(), temp.getImage());
+    }
+    
+    writer.printf("piranha\n");
+    for (int i = 0; i < listPiranha.size(); i++) {
+      Piranha temp = listPiranha.get(i);
+      writer.printf("%f %f | %d | %d | %f | %f | %d | %s\n", temp.position.getX(), 
+        temp.position.getY(), temp.getDirection(), temp.getHungry(), temp.countMove(), 
+        temp.changeMove(), temp.getImage());
+    }
+    
+    writer.printf("guppy\n");
+    for (int i = 0; i < listGuppy.size(); i++) {
+      Guppy temp = listGuppy.get(i);
+      writer.printf("%f %f | %d | %d | %f | %f | %d | %s | %d | %d | %f\n", temp.position.getX(), 
+        temp.position.getY(), temp.getDirection(), temp.getHungry(), temp.countMove(), 
+        temp.changeMove(), temp.getImage(), temp.getPhase(), temp.getFoodCount(), temp.getCountCoin());
+    }
+  
+    // menggambar food
+    writer.printf("food\n");
+    for (int i = 0; i < listFood.size(); i++) {
+      Food temp = listFood.get(i);
+      writer.printf("%f %f | %d | %s | %f\n", temp.position.getX(), temp.position.getY(), 
+        temp.getDirection(), temp.getImage(), temp.getCount());
+    }
+    
+    // menggambar coin
+    writer.printf("coin\n");
+    for (int i = 0; i < listCoin.size(); i++) {
+      Coin temp = listCoin.get(i);
+      writer.printf("%f %f | %d | %s | %f | %d\n", temp.position.getX(), temp.position.getY(), 
+        temp.getDirection(), temp.getImage(), temp.getCount(), temp.getValue());
+    }
+
+    writer.printf("account\n");
+    writer.printf("%d | %d | %s\n", player.getMoney(), player.getEggPhase(), player.getImage());
+
+    writer.close();
   }
 
-  public void load() {
+  public void load() throws IOException {
+    int determinant = 0;
+    try(BufferedReader br = new BufferedReader(new FileReader("save-1.txt"))) {
+      String line = br.readLine();
+  
+      while (line != null) {
+        line = line.replaceAll("\n", "");
+        if (line.equals("snail")) {
+          determinant = 1;
+          continue;
+        } else if (line.equals("piranha")) {
+          determinant = 2;
+          continue;
+        } else if (line.equals("guppy")) {
+          determinant = 3;
+          continue;
+        } else if (line.equals("food")) {
+          determinant = 4;
+          continue;
+        } else if (line.equals("coin")) {
+          determinant = 5;
+          continue;
+        } else if (line.equals("account")) {
+          determinant = 6;
+          continue;
+        }
 
+        switch (determinant) {
+          case 1:
+            
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+          case 4:
+            break;
+          case 5:
+            break;
+          case 6:
+            break;
+        }
+        line = br.readLine();
+      }
+      String everything = sb.toString();
+    } catch (IOException ex) {
+      throw new IOException();
+    }
   }
 }
