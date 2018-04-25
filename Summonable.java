@@ -26,7 +26,7 @@ abstract class Summonable {
   public Summonable(int speed, Point pos) {
     position = new Point(pos.getX(), pos.getY());
     this.speed = speed;
-    direction = (int) Math.random() % 360;
+    direction = (int) (Math.random() % 360);
   }
 
   /*Getter*/
