@@ -304,7 +304,11 @@ public class Aquarium {
     }
     
     for (int i = 0; i < listCoin.size(); i++) {
-      listCoin.get(i).move(time);
+      try {
+        listCoin.get(i).move(time);
+      } catch (NullPointerException ex) {
+        System.out.println(ex);
+      }
     }
 
     for (int i = 0; i < listSnail.size(); i++) {
