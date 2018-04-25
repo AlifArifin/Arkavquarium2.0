@@ -342,6 +342,9 @@ public class Aquarium {
       && player.getMoney() < Guppy.getValueGuppy();
   }
 
+  /**
+   * Menyimpan state dari permainan ke file eksternal.
+   */
   public void save() {
     PrintWriter writer = new PrintWriter("save/save-1.txt", "UTF-8");
     
@@ -349,23 +352,24 @@ public class Aquarium {
     for (int i = 0; i < listSnail.size(); i++) {
       Snail temp = listSnail.get(i);
       writer.printf("%f %f | %d | %s\n", temp.position.getX(), temp.position.getY(), 
-        temp.getDirection(), temp.getImage());
+          temp.getDirection(), temp.getImage());
     }
     
     writer.printf("piranha\n");
     for (int i = 0; i < listPiranha.size(); i++) {
       Piranha temp = listPiranha.get(i);
       writer.printf("%f %f | %d | %d | %f | %f | %d | %s\n", temp.position.getX(), 
-        temp.position.getY(), temp.getDirection(), temp.getHungry(), temp.countMove(), 
-        temp.changeMove(), temp.getImage());
+          temp.position.getY(), temp.getDirection(), temp.getHungry(), temp.countMove(),
+          temp.changeMove(), temp.getImage());
     }
     
     writer.printf("guppy\n");
     for (int i = 0; i < listGuppy.size(); i++) {
       Guppy temp = listGuppy.get(i);
       writer.printf("%f %f | %d | %d | %f | %f | %d | %s | %d | %d | %f\n", temp.position.getX(), 
-        temp.position.getY(), temp.getDirection(), temp.getHungry(), temp.countMove(), 
-        temp.changeMove(), temp.getImage(), temp.getPhase(), temp.getFoodCount(), temp.getCountCoin());
+          temp.position.getY(), temp.getDirection(), temp.getHungry(), temp.countMove(),
+          temp.changeMove(), temp.getImage(), temp.getPhase(), temp.getFoodCount(),
+              temp.getCountCoin());
     }
   
     // menggambar food
@@ -373,7 +377,7 @@ public class Aquarium {
     for (int i = 0; i < listFood.size(); i++) {
       Food temp = listFood.get(i);
       writer.printf("%f %f | %d | %s | %f\n", temp.position.getX(), temp.position.getY(), 
-        temp.getDirection(), temp.getImage(), temp.getCount());
+          temp.getDirection(), temp.getImage(), temp.getCount());
     }
     
     // menggambar coin
@@ -381,7 +385,7 @@ public class Aquarium {
     for (int i = 0; i < listCoin.size(); i++) {
       Coin temp = listCoin.get(i);
       writer.printf("%f %f | %d | %s | %f | %d\n", temp.position.getX(), temp.position.getY(), 
-        temp.getDirection(), temp.getImage(), temp.getCount(), temp.getValue());
+          temp.getDirection(), temp.getImage(), temp.getCount(), temp.getValue());
     }
 
     writer.printf("account\n");
@@ -390,9 +394,13 @@ public class Aquarium {
     writer.close();
   }
 
+  /**
+   * Membaca state permainan yang disimpan pada file eksternal.
+   * Mengeluarkan IOException jika file tidak dapat terbaca.
+   */
   public void load() throws IOException {
     int determinant = 0;
-    try(BufferedReader br = new BufferedReader(new FileReader("save-1.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("save-1.txt"))) {
       String line = br.readLine();
   
       while (line != null) {
@@ -419,7 +427,6 @@ public class Aquarium {
 
         switch (determinant) {
           case 1:
-            
             break;
           case 2:
             break;
@@ -431,6 +438,7 @@ public class Aquarium {
             break;
           case 6:
             break;
+          default:
         }
         line = br.readLine();
       }
