@@ -108,7 +108,7 @@ class Snail extends Summonable implements Comparable<Snail> {
   * @param time time counter.
   * @return index of the closest coin in list of coin if any, else return -1.  
   */
-  public int move(ListObj<Coin> coinList , double time) {
+  public int move(ListObj<Coin> coinList, double time) {
     position.setY(Matrix.getRow() - 1 - radiusSnail);
     if (!coinList.isEmpty()) {
       Point closestCoin = coinList.get(0).getPosition();

@@ -347,6 +347,9 @@ public class Aquarium {
       && player.getMoney() < Guppy.getValueGuppy();
   }
 
+  /**
+   * Menyimpan state dari permainan ke file eksternal.
+   */
   public void save() {
     try {
       PrintWriter writer = new PrintWriter("save/save-1.txt", "UTF-8");
@@ -511,6 +514,7 @@ public class Aquarium {
             player.setEggPhase(Integer.parseInt(lineSplit[1]));
             player.setImage(lineSplit[2]);
             break;
+          default:
         }
         line = br.readLine();
       }
