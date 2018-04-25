@@ -372,10 +372,11 @@ public class Aquarium {
       writer.printf("guppy\n");
       for (int i = 0; i < listGuppy.size(); i++) {
         Guppy temp = listGuppy.get(i);
-        writer.printf("%f %f | %d | %d | %f | %f | %s | %d | %d | %f | %d | %d\n", temp.position.getX(), 
-          temp.position.getY(), temp.getDirection(), temp.getHungry() ? 1 : 0, temp.getCountMove(),
-          temp.getChangeMove(), temp.getImage(), temp.getPhase(), temp.getFoodCount(), temp.getCountCoin(),
-          temp.getNewY(), temp.getNewInstance() ? 1 : 0);
+        writer.printf("%f %f | %d | %d | %f | %f | %s | %d | %d | %f | %d | %d\n",
+            temp.position.getX(),temp.position.getY(), temp.getDirection(), temp.getHungry() ? 1 : 0,
+            temp.getCountMove(), temp.getChangeMove(), temp.getImage(), temp.getPhase(),
+            temp.getFoodCount(), temp.getCountCoin(),
+            temp.getNewY(), temp.getNewInstance() ? 1 : 0);
       }
     
       // menggambar food
@@ -405,9 +406,12 @@ public class Aquarium {
     }
   }
 
+  /**
+   * Mengakses state dari yang tersimpan dari file eksternal.
+   */
   public void load() throws IOException, FileNotFoundException {
     int determinant = 0;
-    try(BufferedReader br = new BufferedReader(new FileReader("save/save-1.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("save/save-1.txt"))) {
       // menginstantiasi ulang list dan player
       listCoin = new ListObj<>();
       listGuppy = new ListObj<>();
