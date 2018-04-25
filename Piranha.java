@@ -77,7 +77,7 @@ public class Piranha extends Fish implements Comparable<Piranha> {
   public void setImage(String image) {
     this.image = image;
   }
-  
+
   /**
    * Merupakan method untuk menggerakkan Piranha.
    * 

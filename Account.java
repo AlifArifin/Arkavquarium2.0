@@ -119,4 +119,22 @@ public class Account {
   public int getEggPhase() {
     return eggPhase;
   }
+
+  /**
+   * setter eggPhase.
+   * 
+   * @param eggPhase the eggPhase to set
+   */
+  public void setEggPhase(int eggPhase) {
+    this.eggPhase = eggPhase;
+  }
+
+  /**
+   * Setter image.
+   * 
+   * @param image the image to set
+   */
+  public void setImage(String image) {
+    this.image = image;
+  }
 }

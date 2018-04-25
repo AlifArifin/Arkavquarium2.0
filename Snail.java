@@ -72,6 +72,15 @@ class Snail extends Summonable implements Comparable<Snail> {
     }
   }
 
+  /**
+   * Setter dari image.
+   * 
+   * @param image the image to set
+   */
+  public void setImage(String image) {
+    this.image = image;
+  }
+
   /*Method*/
 
   /**

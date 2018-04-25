@@ -11,9 +11,9 @@ import java.util.Random;
 public abstract class Fish extends Summonable {
   // atribut
   protected boolean hungry; // status kelaparan ikan
+  protected boolean newInstance; // menunjukkan apakah ikan baru
   protected double countMove; // menghitung waktu pergerakan ikan setelah mengganti arah/makan
   protected double changeMove; // periode penggantian arah ikan
-  protected boolean newInstance; // menunjukkan apakah ikan baru
   protected int newY; // new Y bound
   protected final int value; // harga dari ikan
   protected static final int hungerTime = 6; // periode ikan lapar
@@ -103,6 +103,24 @@ public abstract class Fish extends Summonable {
   }
 
   /**
+   * getter dari newY.
+   * 
+   * @return the newY
+   */
+  public int getNewY() {
+    return newY;
+  }
+
+  /**
+   * getter dari newInstance.
+   * 
+   * @return the newInstance
+   */
+  public boolean getNewInstance() {
+    return newInstance;
+  }
+
+  /**
    * Setter dari changeMove.
    * 
    * @param changeMove the changeMove to set
@@ -127,6 +145,24 @@ public abstract class Fish extends Summonable {
    */
   public void setHungry(boolean hungry) {
     this.hungry = hungry;
+  }
+
+  /**
+   * Setter dari newInstance.
+   * 
+   * @param newInstance the newInstance to set
+   */
+  public void setNewInstance(boolean newInstance) {
+    this.newInstance = newInstance;
+  }
+
+  /**
+   * Setter dari newY.
+   * 
+   * @param newY the newY to set
+   */
+  public void setNewY(int newY) {
+    this.newY = newY;
   }
 
   /**

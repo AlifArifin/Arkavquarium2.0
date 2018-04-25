@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.InterruptedException;
 import java.lang.NullPointerException;
@@ -337,11 +338,19 @@ public class AquariumDisplay extends JPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       Point mouseLocation = new Point(e.getX(), e.getY());
-
       boolean find = false;
       if (menu) {
-        if (menu && e.getY() > 420 && e.getY() < 463 && e.getX() > 204 && e.getX() < 437) {
+        if (e.getY() > 420 && e.getY() < 463 && e.getX() > 204 && e.getX() < 437) {
           menu = false;
+        } else if (e.getY() > 473 && e.getY() < 514 && e.getX() > 237 && e.getX() < 406) {
+          try {
+            arkav.getAquarium().load();
+            menu = false;
+          } catch (FileNotFoundException ex) {
+            System.out.println(ex);
+          } catch (IOException ex) {
+            System.out.println(ex);
+          }
         }
       } else {
         if (e.getY() >= 75) {
@@ -371,6 +380,8 @@ public class AquariumDisplay extends JPanel {
             wantPiranha();
           } else if (e.getX() > 441 && e.getX() < 489 && e.getY() > 3 && e.getY() < 46) {
             wantEgg();
+          } else if (e.getX() > 536 && e.getX() < 611 && e.getY() > 10 && e.getY() < 24) {
+            arkav.getAquarium().save();
           }
         }
       }

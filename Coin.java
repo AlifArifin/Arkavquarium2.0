@@ -91,6 +91,15 @@ public class Coin extends Summonable implements Comparable<Coin> {
   }
 
   /**
+   * setter image.
+   * 
+   * @param image the image to set
+   */
+  public void setImage(String image) {
+    this.image = image;
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override

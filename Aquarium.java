@@ -1,5 +1,10 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
 /**
  * Kelas yang menggambarkan keadaan sebuah akuraium dalam permainan.
@@ -343,98 +348,174 @@ public class Aquarium {
   }
 
   public void save() {
-    PrintWriter writer = new PrintWriter("save/save-1.txt", "UTF-8");
+    try {
+      PrintWriter writer = new PrintWriter("save/save-1.txt", "UTF-8");
+      
+      writer.printf("snail\n");
+      for (int i = 0; i < listSnail.size(); i++) {
+        Snail temp = listSnail.get(i);
+        writer.printf("%f %f | %d | %s\n", temp.position.getX(), temp.position.getY(), 
+          temp.getDirection(), temp.getImage());
+      }
+      
+      writer.printf("piranha\n");
+      for (int i = 0; i < listPiranha.size(); i++) {
+        Piranha temp = listPiranha.get(i);
+        writer.printf("%f %f | %d | %d | %f | %f | %s | %d | %d\n", temp.position.getX(), 
+          temp.position.getY(), temp.getDirection(), temp.getHungry() ? 1 : 0, temp.getCountMove(), 
+          temp.getChangeMove(), temp.getImage(), temp.getNewY(), temp.getNewInstance() ? 1 : 0);
+      }
+      
+      writer.printf("guppy\n");
+      for (int i = 0; i < listGuppy.size(); i++) {
+        Guppy temp = listGuppy.get(i);
+        writer.printf("%f %f | %d | %d | %f | %f | %s | %d | %d | %f | %d | %d\n", temp.position.getX(), 
+          temp.position.getY(), temp.getDirection(), temp.getHungry() ? 1 : 0, temp.getCountMove(),
+          temp.getChangeMove(), temp.getImage(), temp.getPhase(), temp.getFoodCount(), temp.getCountCoin(),
+          temp.getNewY(), temp.getNewInstance() ? 1 : 0);
+      }
     
-    writer.printf("snail\n");
-    for (int i = 0; i < listSnail.size(); i++) {
-      Snail temp = listSnail.get(i);
-      writer.printf("%f %f | %d | %s\n", temp.position.getX(), temp.position.getY(), 
-        temp.getDirection(), temp.getImage());
-    }
-    
-    writer.printf("piranha\n");
-    for (int i = 0; i < listPiranha.size(); i++) {
-      Piranha temp = listPiranha.get(i);
-      writer.printf("%f %f | %d | %d | %f | %f | %d | %s\n", temp.position.getX(), 
-        temp.position.getY(), temp.getDirection(), temp.getHungry(), temp.countMove(), 
-        temp.changeMove(), temp.getImage());
-    }
-    
-    writer.printf("guppy\n");
-    for (int i = 0; i < listGuppy.size(); i++) {
-      Guppy temp = listGuppy.get(i);
-      writer.printf("%f %f | %d | %d | %f | %f | %d | %s | %d | %d | %f\n", temp.position.getX(), 
-        temp.position.getY(), temp.getDirection(), temp.getHungry(), temp.countMove(), 
-        temp.changeMove(), temp.getImage(), temp.getPhase(), temp.getFoodCount(), temp.getCountCoin());
-    }
-  
-    // menggambar food
-    writer.printf("food\n");
-    for (int i = 0; i < listFood.size(); i++) {
-      Food temp = listFood.get(i);
-      writer.printf("%f %f | %d | %s | %f\n", temp.position.getX(), temp.position.getY(), 
-        temp.getDirection(), temp.getImage(), temp.getCount());
-    }
-    
-    // menggambar coin
-    writer.printf("coin\n");
-    for (int i = 0; i < listCoin.size(); i++) {
-      Coin temp = listCoin.get(i);
-      writer.printf("%f %f | %d | %s | %f | %d\n", temp.position.getX(), temp.position.getY(), 
-        temp.getDirection(), temp.getImage(), temp.getCount(), temp.getValue());
-    }
+      // menggambar food
+      writer.printf("food\n");
+      for (int i = 0; i < listFood.size(); i++) {
+        Food temp = listFood.get(i);
+        writer.printf("%f %f | %d | %s | %f\n", temp.position.getX(), temp.position.getY(), 
+          temp.getDirection(), temp.getImage(), temp.getCount());
+      }
+      
+      // menggambar coin
+      writer.printf("coin\n");
+      for (int i = 0; i < listCoin.size(); i++) {
+        Coin temp = listCoin.get(i);
+        writer.printf("%f %f | %d | %s | %f | %d\n", temp.position.getX(), temp.position.getY(), 
+          temp.getDirection(), temp.getImage(), temp.getCount(), temp.getValue());
+      }
 
-    writer.printf("account\n");
-    writer.printf("%d | %d | %s\n", player.getMoney(), player.getEggPhase(), player.getImage());
+      writer.printf("account\n");
+      writer.printf("%d | %d | %s\n", player.getMoney(), player.getEggPhase(), player.getImage());
 
-    writer.close();
+      writer.close();
+    } catch (FileNotFoundException ex) {
+      System.out.println(ex);
+    } catch (UnsupportedEncodingException ex) {
+      System.out.println(ex);
+    }
   }
 
-  public void load() throws IOException {
+  public void load() throws IOException, FileNotFoundException {
     int determinant = 0;
-    try(BufferedReader br = new BufferedReader(new FileReader("save-1.txt"))) {
+    try(BufferedReader br = new BufferedReader(new FileReader("save/save-1.txt"))) {
+      // menginstantiasi ulang list dan player
+      listCoin = new ListObj<>();
+      listGuppy = new ListObj<>();
+      listPiranha = new ListObj<>();
+      listFood = new ListObj<>();
+      listSnail = new ListObj<>();
+      player = new Account();
+
       String line = br.readLine();
-  
       while (line != null) {
         line = line.replaceAll("\n", "");
         if (line.equals("snail")) {
           determinant = 1;
+          line = br.readLine();
           continue;
         } else if (line.equals("piranha")) {
           determinant = 2;
+          line = br.readLine();
           continue;
         } else if (line.equals("guppy")) {
           determinant = 3;
+          line = br.readLine();
           continue;
         } else if (line.equals("food")) {
           determinant = 4;
+          line = br.readLine();
           continue;
         } else if (line.equals("coin")) {
           determinant = 5;
+          line = br.readLine();
           continue;
         } else if (line.equals("account")) {
           determinant = 6;
+          line = br.readLine();
           continue;
         }
 
+        String[] pointSplit;
+        Point temp;
+
+        String[] lineSplit = line.split("\\|");
+        Arrays.parallelSetAll(lineSplit, (i) -> lineSplit[i].trim());
+        
         switch (determinant) {
           case 1:
-            
+            pointSplit = lineSplit[0].split(" ");
+            temp = new Point(Double.parseDouble(pointSplit[0]), Double.parseDouble(pointSplit[1]));
+            Snail snail = new Snail(temp);
+            snail.setDirection(Integer.parseInt(lineSplit[1]));
+            snail.setImage(lineSplit[2]);
+            listSnail.add(snail);
             break;
           case 2:
+            pointSplit = lineSplit[0].split(" ");
+            temp = new Point(Double.parseDouble(pointSplit[0]), Double.parseDouble(pointSplit[1]));
+            Piranha piranha = new Piranha(temp);
+            piranha.setPosition(temp);
+            piranha.setDirection(Integer.parseInt(lineSplit[1]));
+            piranha.setHungry(Integer.parseInt(lineSplit[2]) == 1);
+            piranha.setCountMove(Double.parseDouble(lineSplit[3]));
+            piranha.setChangeMove(Double.parseDouble(lineSplit[4]));
+            piranha.setImage(lineSplit[5]);
+            piranha.setNewY(Integer.parseInt(lineSplit[6]));
+            piranha.setNewInstance(Integer.parseInt(lineSplit[7]) == 1);
+            listPiranha.add(piranha);
             break;
           case 3:
+            pointSplit = lineSplit[0].split(" ");
+            temp = new Point(Double.parseDouble(pointSplit[0]), Double.parseDouble(pointSplit[1]));
+            Guppy guppy = new Guppy(temp);
+            guppy.setPosition(temp);
+            guppy.setDirection(Integer.parseInt(lineSplit[1]));
+            guppy.setHungry(Integer.parseInt(lineSplit[2]) == 1);
+            guppy.setCountMove(Double.parseDouble(lineSplit[3]));
+            guppy.setChangeMove(Double.parseDouble(lineSplit[4]));
+            guppy.setImage(lineSplit[5]);
+            guppy.setPhase(Integer.parseInt(lineSplit[6]));
+            guppy.setFoodCount(Integer.parseInt(lineSplit[7]));
+            guppy.setCountCoin(Double.parseDouble(lineSplit[8]));
+            guppy.setNewY(Integer.parseInt(lineSplit[9]));
+            guppy.setNewInstance(Integer.parseInt(lineSplit[10]) == 1);
+            listGuppy.add(guppy);
             break;
           case 4:
+            pointSplit = lineSplit[0].split(" ");
+            temp = new Point(Double.parseDouble(pointSplit[0]), Double.parseDouble(pointSplit[1]));  
+            Food food = new Food(temp);
+            food.setDirection(Integer.parseInt(lineSplit[1]));            
+            food.setImage(lineSplit[2]);
+            food.setCount(Double.parseDouble(lineSplit[3]));
+            listFood.add(food);
             break;
           case 5:
+            pointSplit = lineSplit[0].split(" ");
+            temp = new Point(Double.parseDouble(pointSplit[0]), Double.parseDouble(pointSplit[1]));  
+            Coin coin = new Coin(temp, Integer.parseInt(lineSplit[4]));
+            coin.setDirection(Integer.parseInt(lineSplit[1]));            
+            coin.setImage(lineSplit[2]);
+            coin.setCount(Double.parseDouble(lineSplit[3]));
+            listCoin.add(coin);
             break;
           case 6:
+            player.setMoney(Integer.parseInt(lineSplit[0]));
+            player.setEggPhase(Integer.parseInt(lineSplit[1]));
+            player.setImage(lineSplit[2]);
             break;
         }
         line = br.readLine();
       }
-      String everything = sb.toString();
+    } catch (FileNotFoundException ex) {
+      throw new FileNotFoundException();
     } catch (IOException ex) {
       throw new IOException();
     }

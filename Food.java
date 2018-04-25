@@ -120,4 +120,13 @@ public class Food extends Summonable implements Comparable<Food> {
   public void setCount(double count) {
     this.count = count;
   }
+
+  /**
+   * setter Image.
+   * 
+   * @param image the image to set
+   */
+  public void setImage(String image) {
+    this.image = image;
+  }
 }
