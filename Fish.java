@@ -13,10 +13,12 @@ public abstract class Fish extends Summonable {
   protected boolean hungry; // status kelaparan ikan
   protected double countMove; // menghitung waktu pergerakan ikan setelah mengganti arah/makan
   protected double changeMove; // periode penggantian arah ikan
+  protected boolean newInstance; // menunjukkan apakah ikan baru
+  protected int newY; // new Y bound
   protected final int value; // harga dari ikan
   protected static final int hungerTime = 6; // periode ikan lapar
   protected static final int deadTime = 12; // periode ikan mati
-  protected static final int speedFish = 40; // kecepatan ikan
+  protected static final int speedFish = 50; // kecepatan ikan
 
   /**
    * Sebuah konstruktor dari ikan yang userdefined.

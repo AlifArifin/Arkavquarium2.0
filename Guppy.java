@@ -36,10 +36,14 @@ public class Guppy extends Fish implements Comparable<Guppy> {
    */
   public Guppy(Point point) {
     super(valueGuppy, point);
+    Random rand = new Random();
     this.phase = 1;
     this.foodCount = 0;
     this.countCoin = 0;
     this.image = imageGuppy[0][0];
+    this.newInstance = true;
+    this.newY = rand.nextInt(100) + 130;
+    position.setY(75);
   }
 
   /**
@@ -179,26 +183,35 @@ public class Guppy extends Fish implements Comparable<Guppy> {
    *         selain itu maka merupakan index dari food pada listFood
    */
   public int move(ListObj<Food> listFood, double time) {
-    // mencatat waktu terkahir setelah (sesuai dengan variabel)
-    countMove += time;
-    changeMove -= time;
-    countCoin += time;
-
-    // apabila pergerakan setelah makan terakhir telah melebihi hungerTime
-    if (countMove >= hungerTime && !hungry) {
-      hungry = true;
-    // apabila pergerakan setelah makan terakhir telah melebihi deadTime
-    } else if (countMove >= deadTime) {
-      return -2;
-    // apabila changeMove telah 0 (akan dikurangi setiap pergerakan) 
-    } else if (changeMove <= 0 && !hungry) {
-      changeChangeMove();
-    }
-
-    if (hungry && !listFood.isEmpty()) {
-      return hungryMove(listFood, time);
+    if (newInstance) {
+      position.setY(position.getY() + speedFish * time * 4);
+      position.setX(position.getX() - speedFish * time * 0.5);
+      if (position.getY() > newY) {
+        newInstance = false;
+      }
+      return -1;
     } else {
-      return notHungryMove(time);
+      // mencatat waktu terkahir setelah (sesuai dengan variabel)
+      countMove += time;
+      changeMove -= time;
+      countCoin += time;
+
+      // apabila pergerakan setelah makan terakhir telah melebihi hungerTime
+      if (countMove >= hungerTime && !hungry) {
+        hungry = true;
+      // apabila pergerakan setelah makan terakhir telah melebihi deadTime
+      } else if (countMove >= deadTime) {
+        return -2;
+      // apabila changeMove telah 0 (akan dikurangi setiap pergerakan) 
+      } else if (changeMove <= 0 && !hungry) {
+        changeChangeMove();
+      }
+
+      if (hungry && !listFood.isEmpty()) {
+        return hungryMove(listFood, time);
+      } else {
+        return notHungryMove(time);
+      }
     }
   }
 

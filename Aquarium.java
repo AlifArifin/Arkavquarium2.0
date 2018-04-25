@@ -334,4 +334,12 @@ public class Aquarium {
     return listGuppy.isEmpty() && listPiranha.isEmpty() && listCoin.isEmpty()
       && player.getMoney() < Guppy.getValueGuppy();
   }
+
+  public void save() {
+    
+  }
+
+  public void load() {
+
+  }
 }
