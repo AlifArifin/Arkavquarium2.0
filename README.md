@@ -22,9 +22,19 @@ Call makefile with command
 make
 ```
 
+### Folders
+
 ## Test
 
 Test directory for JUnit test
+
+## Doc
+
+If you want to see the documentation just open the 
+
+```
+index.html
+```
 
 ## Built With
 
