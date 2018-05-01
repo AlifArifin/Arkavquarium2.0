@@ -6,11 +6,13 @@ Arkavquarium is a simplified of Insaniquarium. Arkavquarium is a desktop game th
 
 To play arkavquarium you can copy this project.
 
-## Running the tests
+### Requirement
 
-To run the program you have to go to src directory
+Install [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm). if you confused, [this](https://stackoverflow.com/questions/2532234/how-to-run-a-makefile-in-windows) might be helped
 
-### Step
+Install [Java JDK 8](https://java.com/en/download/)
+
+### Run
 
 Go to src directory
 
@@ -31,7 +33,7 @@ Test directory for JUnit test
 ## Authors
 
 * **Rahmat Nur Ibrahim S.** - *Linked List, JUnit, Food* - [rnsantosa](https://github.com/rnsantosa/)
-* **Muhammad Alif Arifin** - *Fish, Guppy, Piranha, Visualisation* - [AlifArifin](https://github.com/AlifArifin/)
+* **Muhammad Alif Arifin** - *Fish, Guppy, Piranha, Visualisation, Safe and Load* - [AlifArifin](https://github.com/AlifArifin/)
 * **Rabbi Fijar Mayoza** - *Snail, Coin, Point* - [Pollycarpus](https://github.com/Pollycarpus/)
 * **Iqrar Aminullah** - *Aquarium, Account* - [IqrarAminullah](https://github.com/IqrarAminullah/)
 
